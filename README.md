@@ -2,7 +2,7 @@
 
 _Ideias do TP:_
 
-Inevitavelmente para concatenar com certa eficiencia vamos ter de usar alocaç
+- Inevitavelmente para concatenar com certa eficiencia vamos ter de usar alocação dinamica de memoria.
 
 
 
