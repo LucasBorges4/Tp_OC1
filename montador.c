@@ -1,5 +1,6 @@
 #include "montador.h"
 #include <math.h>
+#include <stdio.h>
 
 int decimal_to_binary(int decimal){
     int i = 0, resultado = 0;
@@ -11,3 +12,7 @@ int decimal_to_binary(int decimal){
     return resultado;
 }
 
+void shift_num(int num){
+    printf("%d << 1 = %d\n", num, num << 1);
+
+}
