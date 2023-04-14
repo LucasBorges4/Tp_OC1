@@ -1,6 +1,4 @@
 #include "montador.h"
-#include <math.h>
-#include <stdio.h>
 
 int decimal_to_binary(int decimal){
     int i = 0, resultado = 0;
