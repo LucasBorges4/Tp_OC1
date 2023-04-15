@@ -15,11 +15,14 @@ int main(void){
     Type_R* vetor_R;
     Type_S* vetor_S;
 
-    // Tipo I addi, andi, ori, lw, lb, lh, sw, sb e sh
+    // Tipo I addi, andi, ori, lw, lb, lh, 
     // Tipo R add, sub, and, or, xor, sll e srl
     // Tipo S sw, sb e sh
     
-    vetor_I = (Type_I*) malloc(sizeof(Type_I));
+    vetor_I = (Type_I*) malloc(6*sizeof(Type_I));
+    vetor_R = (Type_R*) malloc(7*sizeof(Type_R));
+    vetor_S = (Type_S*) malloc(3*sizeof(Type_S));
+
 
 
     instrucoes_tipo_I->nome_Instrucao = *string;
