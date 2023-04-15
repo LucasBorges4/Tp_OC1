@@ -14,10 +14,11 @@ int main(void){
     char* endereco_entrada;
 
     endereco_entrada = (char*) malloc(50*sizeof(char));
-    endereco_entrada = "./stdin/assembly.asm";
+    strcpy("./stdin/assembly.asm", endereco_entrada);
     
     abre_Arquivo(&arq_Entrada, &arq_Saida, endereco_entrada);
-   
+    
+    free(endereco_entrada);
     le_Linha(arq_Entrada);
 
     while (le_Linha(arq_Entrada));
