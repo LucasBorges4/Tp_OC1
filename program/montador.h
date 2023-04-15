@@ -15,3 +15,4 @@ int shift_Num(int num);
 void abre_Arquivo(FILE** arqEntrada, FILE** arqSaida, char* endereco_Entrada);
 void fecha_Arquivo(FILE arqEntrada, FILE arqSaida);
 short le_Linha(FILE* arqEntrada);
+char* adicionar_zeros_esquerda(int binario,int num_bits);
