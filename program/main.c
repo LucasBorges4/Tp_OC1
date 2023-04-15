@@ -15,7 +15,7 @@ int main(void){
     Type_R* vetor_R;
     Type_S* vetor_S;
 
-    // Tipo I addi, andi, ori, lw, lb, lh ->6
+    // Tipo I addi, andi, ori, lw, lb, lh -> 6
     // Tipo R add, sub, and, or, xor, sll e srl -> 7
     // Tipo S sw, sb e sh -> 3
     
