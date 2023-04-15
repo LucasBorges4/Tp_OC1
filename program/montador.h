@@ -4,6 +4,8 @@
 #include <math.h>
 
 typedef struct Type_R {
+    // Nome
+    char* nome_Instrucao;
     //Estrutura da instrução;
     int funct_7; // 31 - 25
     int Rs2_5; // 24 - 20
@@ -19,6 +21,7 @@ typedef struct Type_R {
 
 typedef struct Tipo_I {
     //Estrutura da instrução;
+    char* nome_Instrucao;
     int immediate_12; // 31 - 20
     int Rs1_5; // 19 - 15
     int funct_3; // 14 - 12
@@ -32,6 +35,7 @@ typedef struct Tipo_I {
 
 typedef struct TipoS {
     //Estrutura da instrução;
+    char* nome_Instrucao;
     int immediate_7; // 31 - 25
     int Rs2_5; // 24 - 20
     int Rs1_3; // 19 - 15
@@ -42,8 +46,6 @@ typedef struct TipoS {
     //Type of instruction "83"
     
 } TipoS;
-
-
 
 
 //Funções Primordiais

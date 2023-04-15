@@ -6,8 +6,9 @@
 int main(void){
     FILE *arq_Entrada;
     FILE *arq_Saida;
-    
+   
     char* endereco_entrada;
+
     endereco_entrada = (char*) malloc(50*sizeof(char));
     endereco_entrada = "./stdin/assembly.asm";
     
