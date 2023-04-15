@@ -6,12 +6,12 @@
 
 //Funções Primordiais
 
-char concatenar_string(char* str_A, char* str_B);
+char concatenar_String(char* str_A, char* str_B);
 char* instruct_Converter_to_Binary(char* str);
-int decimal_to_binary(int decimal);
-void shift_num(int num);
+int decimal_to_Binary(int decimal);
+int shift_Num(int num);
 
 //Funções de leitura de arquivo
-void abre_arquivo(FILE *arqEntrada, FILE *arqSaida);
-void fecha_arquivo(FILE *arqEntrada, FILE *arqSaida);
-short le_linha(FILE* arqEntrada);
+void abre_Arquivo(FILE** arqEntrada, FILE** arqSaida, char* endereco_Entrada);
+void fecha_Arquivo(FILE arqEntrada, FILE arqSaida);
+short le_Linha(FILE* arqEntrada);

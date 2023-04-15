@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int decimal_to_binary(int decimal){
+int decimal_to_Binary(int decimal){
     int i = 0, resultado = 0;
     while (decimal != 0) {
         resultado += decimal%2 * pow(10, i);
@@ -13,15 +13,16 @@ int decimal_to_binary(int decimal){
     }
     return resultado;
 }
-
-void shift_num(int num){
-    printf("%d << 1 = %d\n", num, num << 1);
-
+ 
+int shift_Num(int num){
+    return num << 1;
 }
 
-void abre_arquivo(FILE* arqEntrada,FILE* arqSaida){
-    arqEntrada = fopen("*.asm","r");
-    arqSaida = fopen("saida.txt","a");
+void abre_Arquivo(FILE** arqEntrada,FILE** arqSaida, char* endereco_Entrada){
+    
+    *arqEntrada = fopen(endereco_Entrada,"r");
+    *arqSaida = fopen("./assembly/binary","a");
+
     if(arqEntrada == NULL || arqSaida == NULL){
         printf("Erro ao abrir arquivos!\n");
         exit(1);
@@ -30,7 +31,7 @@ void abre_arquivo(FILE* arqEntrada,FILE* arqSaida){
 
 /*Funções de leitura de arquivo*/
 
-short le_linha(FILE *arqEntrada){
+short le_Linha(FILE *arqEntrada){
     //Declara a string para a linha, aloca e armazena a linha
     char *linha;
     short TAM_linha = 100;
@@ -46,7 +47,7 @@ short le_linha(FILE *arqEntrada){
     
     //Caso não tenha memoria retorna um erro e a função acaba;
     if (linha == NULL) {
-        printf("Erro na função le_linha!\n");
+        printf("Fim da leitura!\n");
         return 0;
     }
     //Lê a linha;
