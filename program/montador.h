@@ -12,8 +12,8 @@ typedef struct Type_R {
     int Rd_5; // 11 - 7
     int opcode_7; // 6 - 0
 
-    //Type of instruction
-    char type = 82;
+    //Type of instruction "82"
+
 
 } Type_R;
 
@@ -25,8 +25,8 @@ typedef struct Tipo_I {
     int Rd_5; // 11 - 7
     int opcode_7; // 6 - 0
 
-    //Type of instruction
-    char type = 73;
+    //Type of instruction "73"
+    
 
 } Tipo_I;
 
@@ -39,9 +39,8 @@ typedef struct TipoS {
     int immediate_5; // 11 - 7
     int opcode_7; // 6 - 0;
 
-    //Type of instruction
-    char type = 83;
-
+    //Type of instruction "83"
+    
 } TipoS;
 
 
