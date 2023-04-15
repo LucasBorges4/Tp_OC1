@@ -50,7 +50,6 @@ typedef struct TipoS {
 
 //Funções Primordiais
 
-char concatenar_String(char* str_A, char* str_B);
 char* instruct_Converter_to_Binary(char* str);
 int decimal_to_Binary(int decimal);
 int shift_Num(int num);

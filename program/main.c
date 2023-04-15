@@ -10,7 +10,12 @@ int main(void){
     Type_I* instrucoes_tipo_I;
     Type_R* instrucoes_tipo_R;
     Type_S* instrucoes_tipo_S;
-   
+    
+    
+    char* string[] = {"nome", "nome2"};
+    instrucoes_tipo_I->nome_Instrucao = *string;
+    printf("%s\n", &instrucoes_tipo_I->nome_Instrucao[0]);
+
     char* endereco_entrada;
 
     endereco_entrada = (char*) malloc(50*sizeof(char));
@@ -22,7 +27,7 @@ int main(void){
 
     le_Linha(arq_Entrada);
     while (le_Linha(arq_Entrada));
-    
+
     fclose(arq_Entrada);
 
     //fclose(arq_Saida);
