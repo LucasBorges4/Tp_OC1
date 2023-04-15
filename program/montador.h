@@ -31,7 +31,7 @@ typedef struct Tipo_I {
     //Type of instruction "73"
     
 
-} Tipo_I;
+} Type_I;
 
 typedef struct TipoS {
     //Estrutura da instrução;
@@ -45,7 +45,7 @@ typedef struct TipoS {
 
     //Type of instruction "83"
     
-} TipoS;
+} Type_S;
 
 
 //Funções Primordiais

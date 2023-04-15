@@ -6,6 +6,10 @@
 int main(void){
     FILE *arq_Entrada;
     FILE *arq_Saida;
+
+    Type_I* instrucoes_tipo_I;
+    Type_R* instrucoes_tipo_R;
+    Type_S* instrucoes_tipo_S;
    
     char* endereco_entrada;
 
