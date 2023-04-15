@@ -38,7 +38,7 @@ typedef struct TipoS {
     char* nome_Instrucao;
     int immediate_7; // 31 - 25
     int Rs2_5; // 24 - 20
-    int Rs1_3; // 19 - 15
+    int Rs1_5; // 19 - 15
     int funct_3; // 14 - 12
     int immediate_5; // 11 - 7
     int opcode_7; // 6 - 0;
@@ -50,9 +50,10 @@ typedef struct TipoS {
 //Funções dos Tipos
 
 /* */
-int construtor_binario_Tipo_I(Type_I* instrucao, int Rs1, int );
-int construtor_binario_Tipo_R(Type_R* instrucao);
-int construtor_binario_Tipo_S(Type_S* instrucao);
+
+Type_I construtor_binario_Tipo_I(Type_I* instrucao);
+Type_R construtor_binario_Tipo_R(Type_R* instrucao);
+Type_S construtor_binario_Tipo_S(Type_S* instrucao);
 
 
 
