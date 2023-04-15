@@ -15,9 +15,15 @@ int main(void){
     Type_R* vetor_R;
     Type_S* vetor_S;
 
-    // Tipo I addi, andi, ori, lw, lb, lh, 
-    // Tipo R add, sub, and, or, xor, sll e srl
-    // Tipo S sw, sb e sh
+<<<<<<< HEAD
+    // Tipo I addi, andi, ori, lw, lb, lh, -> 6 
+    // Tipo R add, sub, and, or, xor, sll e srl -> 7
+    // Tipo S sw, sb e sh -> 3
+=======
+    // Tipo I addi, andi, ori, lw, lb, lh -> 6
+    // Tipo R add, sub, and, or, xor, sll e srl -> 7
+    // Tipo S sw, sb e sh -> 3
+>>>>>>> refs/remotes/origin/main
     
     vetor_I = (Type_I*) malloc(6*sizeof(Type_I));
     vetor_R = (Type_R*) malloc(7*sizeof(Type_R));
