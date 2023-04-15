@@ -10,6 +10,8 @@ int main(void){
     Type_I* instrucoes_tipo_I;
     Type_R* instrucoes_tipo_R;
     Type_S* instrucoes_tipo_S;
+
+
     
     
     char* string[] = {"nome", "nome2"};

@@ -47,6 +47,18 @@ typedef struct TipoS {
     
 } Type_S;
 
+//Funções dos Tipos
+
+/* */
+int construtor_binario_Tipo_I(Type_I* instrucao, int Rs1, int );
+int construtor_binario_Tipo_R(Type_R* instrucao);
+int construtor_binario_Tipo_S(Type_S* instrucao);
+
+
+
+
+
+
 
 //Funções Primordiais
 

@@ -58,6 +58,10 @@ short le_Linha(FILE *arqEntrada){
     return 1;
 }
 
+
+
+
+
 void fecha_arquivo(FILE* arqEntrada,FILE* arqSaida){
     fclose(arqSaida);
     fclose(arqEntrada);
