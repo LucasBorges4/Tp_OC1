@@ -62,3 +62,8 @@ void fecha_arquivo(FILE* arqEntrada,FILE* arqSaida){
     fclose(arqSaida);
     fclose(arqEntrada);
 }
+
+void adicionar_zeros_esquerda(int binario,int num_bits){
+    char *str= (char*)malloc(sizeof(char)*num_bits);
+     sprintf(str, "%0*d", num_bits,binario);
+}
