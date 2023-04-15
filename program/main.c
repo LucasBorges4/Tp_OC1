@@ -11,10 +11,17 @@ int main(void){
     Type_R* instrucoes_tipo_R;
     Type_S* instrucoes_tipo_S;
 
+    Type_I* vetor_I;
+    Type_R* vetor_R;
+    Type_S* vetor_S;
 
+    // Tipo I addi, andi, ori, lw, lb, lh, sw, sb e sh
+    // Tipo R add, sub, and, or, xor, sll e srl
+    // Tipo S sw, sb e sh
     
-    
-    char* string[] = {"nome", "nome2"};
+    vetor_I = (Type_I*) malloc(sizeof(Type_I));
+
+
     instrucoes_tipo_I->nome_Instrucao = *string;
     printf("%s\n", &instrucoes_tipo_I->nome_Instrucao[0]);
 
@@ -26,8 +33,7 @@ int main(void){
     abre_Arquivo(&arq_Entrada, &arq_Saida, endereco_entrada);
 
     free(endereco_entrada);
-
-    le_Linha(arq_Entrada);
+    
     while (le_Linha(arq_Entrada));
 
     fclose(arq_Entrada);
