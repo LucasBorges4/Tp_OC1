@@ -18,9 +18,11 @@ int main(void){
     // Pseudo instruções li, mv, j, o binário gerado é o mesmo que numa lógica padrão;
     // Por exemplo -> MV tem o mesmo binario que add x19, x19, x0
     
-    char instrucoes_I[6][4] = {"addi", "andi", "ori", "lw", "lb", "lh"};
-    char instrucoes_R[7][3] = {"add", "sub", "and", "or", "xor", "sll", "srl"};
-    char instrucoes_S[3][3] = {"sw", "sb", "sh"};
+      
+    char instrucoes_I[6][5] = {"addi","andi","ori","lw","lb","lh"};
+    char instrucoes_R[7][4] = {"add", "sub", "and", "or", "xor", "sll", "srl"};
+    char instrucoes_S[3][4] = {"sw", "sb", "sh"};
+                                    
 
     int instrucoes_I_codes[6][2] = {{000,0010011},{111,0010011},{110,0010011},{010,0000011},{000,0000011},{001,0000011}}; //func3,opcode7
     int instrucoes_R_codes[7][3] = {{0000000,000,0110011},{0100000,000,0110011},{0000000,111,0110011},{0000000,110,0110011},{0000000,100,0110011},{0000000,001,0110011},{0000000,101,0110011}}; //func7,func3,opcode7
