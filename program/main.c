@@ -24,10 +24,27 @@ int main(void){
     char instrucoes_S[3][4] = {"sw", "sb", "sh"};
                                     
 
-    int instrucoes_I_codes[6][2] = {{000,0010011},{111,0010011},{110,0010011},{010,0000011},{000,0000011},{001,0000011}}; //func3,opcode7
-    int instrucoes_R_codes[7][3] = {{0000000,000,0110011},{0100000,000,0110011},{0000000,111,0110011},{0000000,110,0110011},{0000000,100,0110011},{0000000,001,0110011},{0000000,101,0110011}}; //func7,func3,opcode7
-    int instrucoes_S_codes[3][2] = {{010,0100011},{000,0100011},{001,0100011}}; //func3,opcode7
-    
+    int instrucoes_I_codes[6][2] = {{0,10011},{111,10011},{110,10011},{10,11},{0,11},{1,11}}; //func3,opcode7
+    int instrucoes_R_codes[7][3] = {{0,0,110011},{100000,0,110011},{0,111,110011},{0,110,110011},{0,100,110011},{0,1,110011},{0,101,110011}}; //func7,func3,opcode
+    int instrucoes_S_codes[3][2] = {{10,100011},{0,100011},{1,100011}}; //func3,opcode7
+    for(int x = 0; x<6; x++){
+        strcpy(vetor_I[x].nome_Instrucao,instrucoes_I[x]);
+        vetor_I[x].funct_3 = instrucoes_I_codes[x][0];
+        vetor_I[x].opcode_7 = instrucoes_I_codes[x][1];
+
+    }
+     for(int x = 0; x<7; x++){
+        strcpy(vetor_R[x].nome_Instrucao,instrucoes_R[x]);
+        vetor_R[x].funct_7 = instrucoes_R_codes[x][0];
+        vetor_R[x].funct_3 = instrucoes_R_codes[x][1];
+        vetor_R[x].opcode_7 = instrucoes_R_codes[x][2];
+
+    }
+    for(int x = 0; x<3; x++){
+       strcpy(vetor_S[x].nome_Instrucao,instrucoes_S[x]);
+        vetor_S[x].funct_3 = instrucoes_S_codes[x][0];
+        vetor_S[x].opcode_7 = instrucoes_S_codes[x][1];
+    }
     char *p;
 
     int cont = 0;
