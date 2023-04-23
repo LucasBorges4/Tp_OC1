@@ -37,7 +37,7 @@ typedef struct Tipo_I {
 
 typedef struct TipoS {
     //Estrutura da instrução;
-    char* nome_Instrucao[5];
+    char nome_Instrucao[5];
     int immediate_7; // 31 - 25
     int Rs2_5; // 24 - 20
     int Rs1_5; // 19 - 15
