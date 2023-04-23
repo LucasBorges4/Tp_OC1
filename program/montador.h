@@ -1,7 +1,9 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <sys/types.h>
 
 typedef struct Type_R {
     // Nome
@@ -64,7 +66,11 @@ Type_S construtor_binario_Tipo_S(Type_S* instrucao);
 //Funções Primordiais
 
 char* instruct_Converter_to_Binary(char* str);
-int decimal_to_Binary(int decimal);
+
+size_t octal_to_binary(size_t octal);
+size_t hexa_to_binary(char* hexa);
+size_t decimal_to_Binary(size_t decimal);
+
 int shift_Num(int num);
 
 //Funções de leitura de arquivo

@@ -5,6 +5,10 @@
 #include <string.h>
 
 int main(void){
+    char* num = "ffff"; // O 'C' suporta até 4 FFFF depois disso começa a dar erro
+    printf("%zu", hexa_to_binary(num));
+
+    /*
     FILE *arq_Entrada;
     FILE *arq_Saida;
 
@@ -63,6 +67,7 @@ int main(void){
         strcpy(*(vetor_S)->nome_Instrucao, p);
         cont++;
     }
+    */
 
     //printf("%s", &vetor_I->nome_Instrucao);
     //printf("%s", (*vetor_I+1)->nome_Instrucao);
@@ -81,18 +86,18 @@ int main(void){
     } 
 */
 
-    char* endereco_entrada;
+    //char* endereco_entrada;
 
-    endereco_entrada = (char*) malloc(50*sizeof(char));
-    strcpy(endereco_entrada, "./stdin/assembly.asm");
+    //endereco_entrada = (char*) malloc(50*sizeof(char));
+    //strcpy(endereco_entrada, "./stdin/assembly.asm");
 
-    abre_Arquivo(&arq_Entrada, &arq_Saida, endereco_entrada);
+    //abre_Arquivo(&arq_Entrada, &arq_Saida, endereco_entrada);
 
-    free(endereco_entrada);
+    //free(endereco_entrada);
     
     //while (le_Linha(arq_Entrada));
 
-    fclose(arq_Entrada);
+    //fclose(arq_Entrada);
 
     //fclose(arq_Saida);
     return 0;
