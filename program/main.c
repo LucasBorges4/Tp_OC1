@@ -33,22 +33,22 @@ int main(void){
     int cont = 0;
     
     for(int x = 0; x < 6; x++){ //Loop for para adicionar func3 e opcode para cada instrucao do tipo I
-        strcpy(vetor_I[x].nome_Instrucao,instrucoes_I[x]);
-        vetor_I[x].funct_3 = instrucoes_I_codes[x][0];
-        vetor_I[x].opcode_7 = instrucoes_I_codes[x][1];
+        strcpy(vetor_I[x].nome_Instrucao,instrucoes_I[x]); //Passa o nome contido em instrucoes_I no indice x para a instrucao I no indice x
+        vetor_I[x].funct_3 = instrucoes_I_codes[x][0]; //Passa o func3 contido em instrucoes_I_codes no indice {x,0} para a instrucao I no indice x
+        vetor_I[x].opcode_7 = instrucoes_I_codes[x][1]; //Passa o opcode contido em instrucoes_I_codes no indice {x,1} para a instrucao I no indice x
     }
     
     for(int x = 0; x < 7; x++){ //Loop for para adicionar func7,func3 e opcode para cada instrucao do tipo R
-        strcpy(vetor_R[x].nome_Instrucao,instrucoes_R[x]);
-        vetor_R[x].funct_7 = instrucoes_R_codes[x][0];
-        vetor_R[x].funct_3 = instrucoes_R_codes[x][1];
-        vetor_R[x].opcode_7 = instrucoes_R_codes[x][2];
+        strcpy(vetor_R[x].nome_Instrucao,instrucoes_R[x]); //Passa o nome contido em instrucoes_R no indice x para a instrucao R no indice x
+        vetor_R[x].funct_7 = instrucoes_R_codes[x][0]; //Passa o func7 contido em instrucoes_R_codes no indice {x,0} para a instrucao R no indice x
+        vetor_R[x].funct_3 = instrucoes_R_codes[x][1]; //Passa o func3 contido em instrucoes_R_codes no indice {x,1} para a instrucao R no indice x
+        vetor_R[x].opcode_7 = instrucoes_R_codes[x][2]; //Passa o opcode contido em instrucoes_R_codes no indice {x,2} para a instrucao R no indice x
     }
 
     for(int x = 0; x < 3; x++){ //Loop for para adicionar func3 e opcode para cada instrucao do tipo S
-        strcpy(vetor_S[x].nome_Instrucao,instrucoes_S[x]);
-        vetor_S[x].funct_3 = instrucoes_S_codes[x][0];
-        vetor_S[x].opcode_7 = instrucoes_S_codes[x][1];
+        strcpy(vetor_S[x].nome_Instrucao,instrucoes_S[x]); //Passa o nome contido em instrucoes_S no indice x para a instrucao S no indice x
+        vetor_S[x].funct_3 = instrucoes_S_codes[x][0]; //Passa o func3 contido em instrucoes_S_codes no indice {x,0} para a instrucao S no indice x
+        vetor_S[x].opcode_7 = instrucoes_S_codes[x][1];  //Passa o opcode contido em instrucoes_S_codes no indice {x,1} para a instrucao S no indice x
     }
     
     char* endereco_entrada; //String para armazenar o endereco de entrada
