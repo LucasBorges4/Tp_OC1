@@ -6,8 +6,8 @@
 
 int main(void){
     
-    FILE *arq_Entrada;
-    FILE *arq_Saida;
+    FILE *arq_Entrada; //Armazena o arquivo de entrada
+    FILE *arq_Saida; //Armazena o arquivo de saida
 
     Type_I vetor_I[6];
     Type_R vetor_R[7];
@@ -32,31 +32,31 @@ int main(void){
 
     int cont = 0;
     
-    for(int x = 0; x < 6; x++){
+    for(int x = 0; x < 6; x++){ //Loop for para adicionar func3 e opcode para cada instrucao do tipo I
         strcpy(vetor_I[x].nome_Instrucao,instrucoes_I[x]);
         vetor_I[x].funct_3 = instrucoes_I_codes[x][0];
         vetor_I[x].opcode_7 = instrucoes_I_codes[x][1];
     }
     
-    for(int x = 0; x < 7; x++){
+    for(int x = 0; x < 7; x++){ //Loop for para adicionar func7,func3 e opcode para cada instrucao do tipo R
         strcpy(vetor_R[x].nome_Instrucao,instrucoes_R[x]);
         vetor_R[x].funct_7 = instrucoes_R_codes[x][0];
         vetor_R[x].funct_3 = instrucoes_R_codes[x][1];
         vetor_R[x].opcode_7 = instrucoes_R_codes[x][2];
     }
 
-    for(int x = 0; x < 3; x++){
+    for(int x = 0; x < 3; x++){ //Loop for para adicionar func3 e opcode para cada instrucao do tipo S
         strcpy(vetor_S[x].nome_Instrucao,instrucoes_S[x]);
         vetor_S[x].funct_3 = instrucoes_S_codes[x][0];
         vetor_S[x].opcode_7 = instrucoes_S_codes[x][1];
     }
     
-    char* endereco_entrada;
-    endereco_entrada = (char*) malloc(50*sizeof(char));
-    strcpy(endereco_entrada, "./stdin/assembly.asm");
-    abre_Arquivo(&arq_Entrada, &arq_Saida, endereco_entrada);
+    char* endereco_entrada; //String para armazenar o endereco de entrada
+    endereco_entrada = (char*) malloc(50*sizeof(char)); //Alocacao de 50 caracteres(limite)
+    strcpy(endereco_entrada, "./stdin/assembly.asm"); //Atribuicao do endereco para a string
+    abre_Arquivo(&arq_Entrada, &arq_Saida, endereco_entrada); 
 
-    free(endereco_entrada);
+    free(endereco_entrada); //Libera a string, visto que nao sera mais utilizada
     
     char* str = "add";
 
@@ -71,6 +71,6 @@ int main(void){
     };
     */
 
-    fclose(arq_Entrada);
+    fclose(arq_Entrada); //Fecha o arquivo de entrada, visto que nao vai ser mais utilizado
     return 0;
 }
