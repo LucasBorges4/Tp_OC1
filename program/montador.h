@@ -5,7 +5,17 @@
 #include <math.h>
 #include <sys/types.h>
 
-typedef struct Type_R {
+typedef struct Type_R { 
+    /*Struct para instrucoes do tipo R
+    Contem:
+    -Nome da instrucao
+    -Funct7 da instrucao(7bits)
+    -Rs1(Primeiro registrador)(5bits)
+    -Rs2(Segundo registrador)(5bits)
+    -Funct3 da instrucao(3bits)
+    -Rd(Registrador de destino)(5bits)
+    -Opcode da instrucao(7bits)
+    */
     // Nome
     char nome_Instrucao[6];
     //Estrutura da instrução;
@@ -22,6 +32,15 @@ typedef struct Type_R {
 } Type_R;
 
 typedef struct Tipo_I {
+       /*Struct para instrucoes do tipo I
+    Contem:
+    -Nome da instrucao
+    -Imediato da instrucao(12bits)
+    -Rs1(Primeiro registrador)(5bits)
+    -Rd(Registrador de destino)(5bits)
+    -Opcode da instrucao(7bits)
+    */
+    
     //Estrutura da instrução;
     char nome_Instrucao[6];
     int immediate_12; // 31 - 20
@@ -36,6 +55,17 @@ typedef struct Tipo_I {
 } Type_I;
 
 typedef struct TipoS {
+     /*Struct para instrucoes do tipo S
+    Contem:
+    -Nome da instrucao 
+    -Imediato da instrucao(12bits)  //Primeira parte- 7bits  Segunda parte - 5bits
+    -Rs1(Primeiro registrador)(5bits)
+    -Rs2(Segundo registrador)(5bits)
+    -Funct3 da instrucao(3bits)
+    -Rd(Registrador de destino)
+    -Opcode da instrucao(7bits)
+    */
+    
     //Estrutura da instrução;
     char nome_Instrucao[5];
     int immediate_7; // 31 - 25
