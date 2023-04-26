@@ -53,16 +53,6 @@ typedef struct TipoS {
 
 /* */
 
-Type_I construtor_binario_Tipo_I(Type_I* instrucao);
-Type_R construtor_binario_Tipo_R(Type_R* instrucao);
-Type_S construtor_binario_Tipo_S(Type_S* instrucao);
-
-
-
-
-
-
-
 //Funções Primordiais
 
 char* instruct_Converter_to_Binary(char* str);
@@ -74,7 +64,16 @@ size_t decimal_to_Binary(size_t decimal);
 int shift_Num(int num);
 
 //Funções de leitura de arquivo
+
 void abre_Arquivo(FILE** arqEntrada, FILE** arqSaida, char* endereco_Entrada);
-void fecha_Arquivo(FILE arqEntrada, FILE arqSaida);
-short le_Linha(FILE* arqEntrada);
+//void fecha_Arquivo(FILE arqEntrada, FILE arqSaida);
+
+short le_Linha(FILE* arqEntrada, Type_I vetor_I, Type_R vetor_R, Type_S vetor_S);
+short le_instrucao_R(Type_R *montador, char* str);
+short le_instrucao_S(Type_S *montador, char* str);
+short le_instrucao_I(Type_I *montador, char* str);
+short pesquisa_instrução(char* str, Type_I** montador_I, Type_R** montador_R, Type_S** montador_S, 
+    Type_I** convert_I, Type_R** convert_R, Type_S** convert_S);
+
+
 char* adicionar_zeros_esquerda(int binario,int num_bits);
