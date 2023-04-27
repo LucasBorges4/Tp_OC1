@@ -20,9 +20,9 @@ int main(void){
     // Por exemplo -> MV tem o mesmo binario que add x19, x19, x0
     
       
-    char instrucoes_I[6][5] = {"addi","andi","ori","lw","lb","lh"};
-    char instrucoes_R[7][4] = {"add", "sub", "and", "or", "xor", "sll", "srl"};
-    char instrucoes_S[3][3] = {"sw", "sb", "sh"};
+    char instrucoes_I[6][5] = {"addi","andi","ori","lw","lb","lh"}; //Instrucoes do tipo I
+    char instrucoes_R[7][4] = {"add", "sub", "and", "or", "xor", "sll", "srl"}; //Instrucoes do tipo R
+    char instrucoes_S[3][3] = {"sw", "sb", "sh"}; //Instrucoes do tipo S
                                     
     int instrucoes_I_codes[6][2] = {{0,10011},{111,10011},{110,10011},{10,11},{0,11},{1,11}}; //func3,opcode7
     int instrucoes_R_codes[7][3] = {{0,0,110011},{100000,0,110011},{0,111,110011},{0,110,110011},{0,100,110011},{0,1,110011},{0,101,110011}}; //func7,func3,opcode
