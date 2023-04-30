@@ -72,5 +72,17 @@ int main(void){
     */
 
     fclose(arq_Entrada); //Fecha o arquivo de entrada, visto que nao vai ser mais utilizado
+     /*
+    Type_I resulti;
+    Type_R resultr;
+    Type_S results;
+    Exemplo de uso!
+    
+    pesquisa_instrução("srl",  vetor_I, vetor_R, vetor_S,  //Adiciona os valores funct7,funct3 e opcode de srl em resultr
+    &resulti,&resultr,&results); 
+    set_registradores_R(&resultr,0,2,2);  //Define os valores rd,rs1 e rs2 de R (srl x0,x2,x2)
+
+    printf("%s ",get_R_binary(resultr)); //Printa o binario de 32 bits resultante
+    /*
     return 0;
 }
