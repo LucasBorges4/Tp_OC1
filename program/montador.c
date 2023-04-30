@@ -68,63 +68,70 @@ void abre_Arquivo(FILE** arqEntrada,FILE** arqSaida, char* endereco_Entrada){ //
     }
 }
 
-short le_instrucao_I(Type_I* montador, char* str){ //Funcao com o objetivo de analisar se a instrucao pertence ao tipo I
-    for (int i = 0; i < 6; i++) { //Loop passando por todas as instrucoes do tipo I
-        if (!strcmp(montador[i].nome_Instrucao, &str[0])) { //Verifica se o nome da instrucao dado na funcao seja igual ao da instrucao do tipo I no indice I do vetor montador
-            return 1; //Caso for, a funcao pertence ao tipo I
+short le_instrucao_I(Type_I* montador, char* str){ //Retorna o indice da instrucao no tipo I, se existir, caso contrario, retorna -1
+    for (int i = 0; i < 6; i++) {
+        if (!strcmp(montador[i].nome_Instrucao, &str[0])) {
+            return i;
         }
     }
-    return 0; //Caso tenha passado pelo loop sem retorno, a funcao nao pertence ao tipo I
+    return -1;
 }
 
-short le_instrucao_R(Type_R *montador, char* str){  //Funcao com o objetivo de analisar se a instrucao pertence ao tipo R
-    for (int i = 0; i < 7; i++) {//Loop passando por todas as instrucoes do tipo R
-        if (!strcmp(montador[i].nome_Instrucao, &str[0])) { //Verifica se o nome da instrucao dado na funcao seja igual ao da instrucao do tipo R no indice R do vetor montador
-            return 1; //Caso for, a funcao pertence ao tipo R
+short le_instrucao_R(Type_R *montador, char* str){ //Retorna o indice da instrucao no tipo R, se existir, caso contrario, retorna -1
+    for (int i = 0; i < 7; i++) {
+        if (!strcmp(montador[i].nome_Instrucao, &str[0])) {
+            return i;
         }
     }
 
-    return 0; //Caso tenha passado pelo loop sem retorno, a funcao nao pertence ao tipo R
+    return -1;
 }
 
-short le_instrucao_S(Type_S *montador, char* str){ //Funcao com o objetivo de analisar se a instrucao pertence ao tipo S
-    for (int i = 0; i < 3; i++) {  //Loop passando por todas as instrucoes do tipo S
-        if (!strcmp(montador[i].nome_Instrucao, &str[0])) { //Verifica se o nome da instrucao dado na funcao seja igual ao da instrucao do tipo S no indice S do vetor montador
-            return 1; //Caso for, a funcao pertence ao tipo S
+short le_instrucao_S(Type_S *montador, char* str){ //Retorna o indice da instrucao no tipo S, se existir, caso contrario, retorna -1
+    for (int i = 0; i < 3; i++) {
+        if (!strcmp(montador[i].nome_Instrucao, &str[0])) {
+            return i;
         }
     }
-    return 0; //Caso tenha passado pelo loop sem retorno, a funcao nao pertence ao tipo S
+    return -1;
 }
-short instrcpy_R(const Type_R* montador, Type_R* cpy){return 1;}
-short instrcpy_S(const Type_S* montador, Type_S* cpy){return 1;}
-short instrcpy_I(const Type_I* montador, Type_I* cpy){return 1;}
+
+
 short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, 
-    Type_I convert_I, Type_R convert_R, Type_S convert_S){ //Funcao com o objetivo de encontrar a qual tipo uma certa instrucao pertence
+Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar o tipo de uma certa instrucao e atribuir ao devido struct seus parametros(funct_3,funct_7,opcode)
         
     for (int i = 0; i < 7; i++) {
-        if (le_instrucao_I(&montador_I[i], str)){    
-            convert_I = montador_I[i];
-            return 1;
-            }
+        int index = le_instrucao_I(&montador_I[i], str); //Indice recebe o possivel indice da instrucao no vetor I
+        if (index != -1){    //Caso nao for -1, a funcao pertence nesse tipo
+            *Result_I = montador_I[index]; //Result_I recebe a struct no indice index no montador_I
+            return 1; //Retorna 1 se instrucao for do tipo I
+            break;
         }
-
+      
     for (int i = 0; i < 3; i++) {
-        if (le_instrucao_S(&montador_S[i], str)) {
-            convert_S = montador_S[i];
-            return 1;
-            }
+       int index = le_instrucao_S(&montador_S[i], str); //Indice recebe o possivel indice da instrucao no vetor S
+        if (index != -1){  //Caso nao for -1, a funcao pertence nesse tipo
+            *Result_S = montador_S[index];  //Result_S recebe a struct no indice index no montador_S
+
+            return 2; //Retorna 2 se instrucao for do tipo S
+            break;
         }
+    }
 
     for (int i = 0; i < 6; i++) {
-        if (le_instrucao_R(&montador_R[i], str)) {
-            convert_R = montador_R[i];
-            return 1;
-            }
+        int index = le_instrucao_R(&montador_R[i], str); //Indice recebe o possivel indice da instrucao no vetor R
+        if (index != -1){     //Caso nao for -1, a funcao pertence nesse tipo
+            *Result_R = montador_R[index];  //Result_R recebe a struct no indice index no montador_R
+            return 3; //Retorna 3 se instrucao for do tipo R
+            break;
         }
+    }
+    return 0; //Retorna 0 se a instrucao for desconhecida
 
-    return 0;
+    }
+
+    
 }
-
 
 /*Funções de leitura de arquivo*/
 
@@ -175,4 +182,80 @@ char* adicionar_zeros_esquerda(int binario,int num_bits){ //Funcao com o objetiv
     sprintf(str, "%0*d", num_bits,binario); //sprintf para que sejam adicionados zeros a esquerda ate que o binario tenha num_bits bits
     
     return str; //Retorna o binario, que, agora, e representado por uma string, visto que zeros a esquerda sao removidos por padrao em tipos inteiros
+}
+
+
+char *get_R_binary(Type_R struct_R){ //Funcao que retorna o binario de 32 bits do tipo R
+    char *binary=(char*)malloc(sizeof(char)*32); //Alocacao de 32 chars
+    /*Passa todos os inteiros contidos na estrutura R em
+    forma de binario e, se necessario, com zeros a esquerda */
+    sprintf(binary, "%s%s%s%s%s%s",adicionar_zeros_esquerda(struct_R.funct_7,7),  //sprintf para conversao de todos os inteiros em um unico char
+    adicionar_zeros_esquerda(struct_R.Rs2_5,5),
+    adicionar_zeros_esquerda(struct_R.Rs1_5,5),
+    adicionar_zeros_esquerda(struct_R.funct_3,3),
+    adicionar_zeros_esquerda(struct_R.Rd_5,5),
+    adicionar_zeros_esquerda(struct_R.opcode_7,7));
+    
+    return binary;
+
+    
+}
+char *get_I_binary(Type_I struct_I){ //Funcao que retorna o binario de 32 bits do tipo I
+    char *binary=(char*)malloc(sizeof(char)*32); //Alocacao de 32 chars
+     /*Passa todos os inteiros contidos na estrutura I em
+    forma de binario e, se necessario, com zeros a esquerda */
+    sprintf(binary, "%s%s%s%s%s",adicionar_zeros_esquerda(struct_I.immediate_12,12),  //sprintf para conversao de todos os inteiros em um unico char
+    adicionar_zeros_esquerda(struct_I.Rs1_5,5),
+    adicionar_zeros_esquerda(struct_I.funct_3,3),
+    adicionar_zeros_esquerda(struct_I.Rd_5,5),
+    adicionar_zeros_esquerda(struct_I.opcode_7,7));
+    
+    return binary;
+
+    
+}
+char *get_S_binary(Type_S struct_S){ //Funcao que retorna o binario de 32 bits do tipo S
+    
+    char *binary=(char*)malloc(sizeof(char)*32); //Alocacao de 32 chars
+    /*Passa todos os inteiros contidos na estrutura S em
+    forma de binario e, se necessario, com zeros a esquerda */
+    sprintf(binary, "%s%s%s%s%s%s",adicionar_zeros_esquerda(struct_S.immediate_7,7), //sprintf para conversao de todos os inteiros em um unico char
+    adicionar_zeros_esquerda(struct_S.Rs2_5,5),
+    adicionar_zeros_esquerda(struct_S.Rs1_5,5),
+    adicionar_zeros_esquerda(struct_S.funct_3,3),
+    adicionar_zeros_esquerda(struct_S.immediate_5,5),
+    adicionar_zeros_esquerda(struct_S.opcode_7,7));
+    
+    return binary;
+
+    
+}
+
+
+
+
+
+int get_substring(char* string,int initial_pos,int length){ //Funcao com o objetivo de pegar um intervalo(substring) dentro de uma string
+    char *substring = (char*)malloc(length-initial_pos+1); //Alocacao de memoria apropriada
+        strncpy(substring,string+(initial_pos-1),length); //Atribui a substring para a variavel
+        return atoi(substring); //Retorna a substring como inteiro pela funcao atoi    
+}
+
+
+void set_registradores_I(Type_I * struct_I,int Rd,int immediate,int Rs1){ //Coloca os valores dos registradores e imediatos no tipo I
+    struct_I->immediate_12=decimal_to_Binary(immediate); //Imediato convertido para binario
+    struct_I->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
+    struct_I->Rd_5=decimal_to_Binary(Rd); //Rd convertido para binario
+}
+void set_registradores_R(Type_R * struct_R,int Rd,int Rs1,int Rs2){  //Coloca os valores dos registradores e imediatos no tipo R
+    struct_R->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
+    struct_R->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
+    struct_R->Rd_5=decimal_to_Binary(Rd); //Rd convertido para binario
+}
+
+void set_registradores_S(Type_S * struct_S,int Rd,int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo S
+    struct_S->immediate_7=get_substring(adicionar_zeros_esquerda(immediate,7),5,11); //Imediato[11:5] convertido para binario
+    struct_S->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
+    struct_S->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
+    struct_S->immediate_5=get_substring(adicionar_zeros_esquerda(immediate,7),0,4); //Imediato[4:0] convertido para binario 
 }

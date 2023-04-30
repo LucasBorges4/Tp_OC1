@@ -60,19 +60,10 @@ int main(void){
     
     char* str = "add";
 
-    /*
     printf("%d\n", le_instrucao_R(vetor_R, str));
     printf("%d\n", le_instrucao_I(vetor_I, str));
     printf("%d\n", le_instrucao_S(vetor_S, str));
-    */
-
-    Type_I convert_I;
-    Type_R convert_R;
-    Type_S convert_S;
-
-    pesquisa_instrução(str, vetor_I, vetor_R, vetor_S, convert_I, convert_R, convert_S);
-
-    printf("Resultado: %s\n", convert_R.nome_Instrucao);
+    
     
     /*while (1){
         if (!le_Linha(arq_Entrada, *vetor_I, *vetor_R, *vetor_S)) break;
@@ -81,5 +72,16 @@ int main(void){
     */
 
     fclose(arq_Entrada); //Fecha o arquivo de entrada, visto que nao vai ser mais utilizado
+
+    Type_I resulti;
+    Type_R resultr;
+    Type_S results;
+    //Exemplo de uso!
+    
+    pesquisa_instrução("srl",  vetor_I, vetor_R, vetor_S,  //Adiciona os valores funct7,funct3 e opcode de srl em resultr
+    &resulti,&resultr,&results); 
+    set_registradores_R(&resultr,0,2,2);  //Define os valores rd,rs1 e rs2 de R (srl x0,x2,x2)
+    printf("%s ",get_R_binary(resultr)); //Printa o binario de 32 bits resultante
+    
     return 0;
 }
