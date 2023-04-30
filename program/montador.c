@@ -126,11 +126,10 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
             break;
         }
     }
-    return 0; //Retorna 0 se a instrucao for desconhecida
 
     }
 
-    
+    return 0; //Retorna 0 se a instrucao for desconhecida    
 }
 
 /*Funções de leitura de arquivo*/
