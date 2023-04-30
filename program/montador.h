@@ -102,8 +102,13 @@ short le_Linha(FILE* arqEntrada, Type_I vetor_I, Type_R vetor_R, Type_S vetor_S)
 short le_instrucao_R(Type_R *montador, char* str);
 short le_instrucao_S(Type_S *montador, char* str);
 short le_instrucao_I(Type_I *montador, char* str);
-short pesquisa_instrução(char* str, Type_I** montador_I, Type_R** montador_R, Type_S** montador_S, 
-    Type_I** convert_I, Type_R** convert_R, Type_S** convert_S);
+short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, 
+    Type_I convert_I, Type_R convert_R, Type_S convert_S);
+
+
+short instrcpy_R(const Type_R* montador, Type_R* cpy);
+short instrcpy_S(const Type_S* montador, Type_S* cpy);
+short instrcpy_I(const Type_I* montador, Type_I* cpy);
 
 
 char* adicionar_zeros_esquerda(int binario,int num_bits);

@@ -70,7 +70,6 @@ void abre_Arquivo(FILE** arqEntrada,FILE** arqSaida, char* endereco_Entrada){ //
 
 short le_instrucao_I(Type_I* montador, char* str){ //Funcao com o objetivo de analisar se a instrucao pertence ao tipo I
     for (int i = 0; i < 6; i++) { //Loop passando por todas as instrucoes do tipo I
-        printf("%s ", montador[i].nome_Instrucao);
         if (!strcmp(montador[i].nome_Instrucao, &str[0])) { //Verifica se o nome da instrucao dado na funcao seja igual ao da instrucao do tipo I no indice I do vetor montador
             return 1; //Caso for, a funcao pertence ao tipo I
         }
@@ -80,7 +79,6 @@ short le_instrucao_I(Type_I* montador, char* str){ //Funcao com o objetivo de an
 
 short le_instrucao_R(Type_R *montador, char* str){  //Funcao com o objetivo de analisar se a instrucao pertence ao tipo R
     for (int i = 0; i < 7; i++) {//Loop passando por todas as instrucoes do tipo R
-        printf("%s ", montador[i].nome_Instrucao);
         if (!strcmp(montador[i].nome_Instrucao, &str[0])) { //Verifica se o nome da instrucao dado na funcao seja igual ao da instrucao do tipo R no indice R do vetor montador
             return 1; //Caso for, a funcao pertence ao tipo R
         }
@@ -91,37 +89,40 @@ short le_instrucao_R(Type_R *montador, char* str){  //Funcao com o objetivo de a
 
 short le_instrucao_S(Type_S *montador, char* str){ //Funcao com o objetivo de analisar se a instrucao pertence ao tipo S
     for (int i = 0; i < 3; i++) {  //Loop passando por todas as instrucoes do tipo S
-        printf("%s ", montador[i].nome_Instrucao);
         if (!strcmp(montador[i].nome_Instrucao, &str[0])) { //Verifica se o nome da instrucao dado na funcao seja igual ao da instrucao do tipo S no indice S do vetor montador
             return 1; //Caso for, a funcao pertence ao tipo S
         }
     }
     return 0; //Caso tenha passado pelo loop sem retorno, a funcao nao pertence ao tipo S
 }
-
-short pesquisa_instrução(char* str, Type_I** montador_I, Type_R** montador_R, Type_S** montador_S, 
-    Type_I** convert_I, Type_R** convert_R, Type_S** convert_S){ //Funcao com o objetivo de encontrar a qual tipo uma certa instrucao pertence
+short instrcpy_R(const Type_R* montador, Type_R* cpy){return 1;}
+short instrcpy_S(const Type_S* montador, Type_S* cpy){return 1;}
+short instrcpy_I(const Type_I* montador, Type_I* cpy){return 1;}
+short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, 
+    Type_I convert_I, Type_R convert_R, Type_S convert_S){ //Funcao com o objetivo de encontrar a qual tipo uma certa instrucao pertence
         
     for (int i = 0; i < 7; i++) {
-        if (le_instrucao_I(montador_I[i], str)){    
-            
-        }
-      
-    for (int i = 0; i < 3; i++) {
-        if (le_instrucao_S(montador_S[i], str)) {
+        if (le_instrucao_I(&montador_I[i], str)){    
+            convert_I = montador_I[i];
             return 1;
+            }
         }
-    }
+
+    for (int i = 0; i < 3; i++) {
+        if (le_instrucao_S(&montador_S[i], str)) {
+            convert_S = montador_S[i];
+            return 1;
+            }
+        }
 
     for (int i = 0; i < 6; i++) {
-        if (le_instrucao_R(montador_R[i], str)) {
-            break;
+        if (le_instrucao_R(&montador_R[i], str)) {
+            convert_R = montador_R[i];
+            return 1;
+            }
         }
-    }
 
-    }
-
-    
+    return 0;
 }
 
 

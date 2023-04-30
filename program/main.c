@@ -60,10 +60,19 @@ int main(void){
     
     char* str = "add";
 
+    /*
     printf("%d\n", le_instrucao_R(vetor_R, str));
     printf("%d\n", le_instrucao_I(vetor_I, str));
     printf("%d\n", le_instrucao_S(vetor_S, str));
-    
+    */
+
+    Type_I convert_I;
+    Type_R convert_R;
+    Type_S convert_S;
+
+    pesquisa_instrução(str, vetor_I, vetor_R, vetor_S, convert_I, convert_R, convert_S);
+
+    printf("Resultado: %s\n", convert_R.nome_Instrucao);
     
     /*while (1){
         if (!le_Linha(arq_Entrada, *vetor_I, *vetor_R, *vetor_S)) break;
