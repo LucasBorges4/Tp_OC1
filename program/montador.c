@@ -107,6 +107,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
             return 1; //Retorna 1 se instrucao for do tipo I
             break;
         }
+    }
       
     for (int i = 0; i < 3; i++) {
        int index = le_instrucao_S(&montador_S[i], str); //Indice recebe o possivel indice da instrucao no vetor S
@@ -125,8 +126,6 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
             return 3; //Retorna 3 se instrucao for do tipo R
             break;
         }
-    }
-
     }
 
     return 0; //Retorna 0 se a instrucao for desconhecida    
