@@ -133,7 +133,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
 
 /*Funções de leitura de arquivo*/
 
-short le_Linha(FILE *arqEntrada, Type_I vetor_I, Type_R vetor_R, Type_S vetor_S){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
+short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
     //Declara a string para a linha, aloca e armazena a linha
     char *linha; //String para armazenar a linha atual
     short TAM_linha = 100; //Limite de caracteres por linha
@@ -153,20 +153,23 @@ short le_Linha(FILE *arqEntrada, Type_I vetor_I, Type_R vetor_R, Type_S vetor_S)
         return 0;
     }
     //Lê a linha;
+
     const char delim[1] = " "; //Delimitador a ser utilizado
     char *token;
 
     token = strtok(linha, delim);  //A funcao strtok e responsavel por separar a string baseada em certos delimitadores, que nesse caso e um espaco
 
     short i = 0; //variavel indice
+
     char str[4][5]; //string constante que armazenara o vetor de strings gerado pela separacao da linha baseado em espacos
 
     while (token != NULL) { //Enquanto token ainda nao for nulo
-        printf("%s\n", token);
         strcpy(str[i], token); //Atribuido ao vetor str no indice i o valor de token
+        printf("%s\n", str[i]);
         token = strtok(NULL, delim); //token recebe um strtok para que seja separado novamente pelo delimitador espaco
         i++; //indice incrementa 
     }
+    
 
 
     //Libera memoria e retorna;
@@ -228,10 +231,6 @@ char *get_S_binary(Type_S struct_S){ //Funcao que retorna o binario de 32 bits d
 
     
 }
-
-
-
-
 
 int get_substring(char* string,int initial_pos,int length){ //Funcao com o objetivo de pegar um intervalo(substring) dentro de uma string
     char *substring = (char*)malloc(length-initial_pos+1); //Alocacao de memoria apropriada

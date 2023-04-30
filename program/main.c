@@ -65,15 +65,15 @@ int main(void){
     printf("%d\n", le_instrucao_S(vetor_S, str));
     
     
-    /*while (1){
-        if (!le_Linha(arq_Entrada, *vetor_I, *vetor_R, *vetor_S)) break;
+    while (1){
+        if (!le_Linha(arq_Entrada, vetor_I, vetor_R, vetor_S)) break;
         
     };
-    */
+    
 
     fclose(arq_Entrada); //Fecha o arquivo de entrada, visto que nao vai ser mais utilizado
 
-    Type_I resulti;
+    /*Type_I resulti;
     Type_R resultr;
     Type_S results;
     //Exemplo de uso!
@@ -82,6 +82,6 @@ int main(void){
     &resulti,&resultr,&results); 
     set_registradores_R(&resultr,0,2,2);  //Define os valores rd,rs1 e rs2 de R (srl x0,x2,x2)
     printf("%s ",get_R_binary(resultr)); //Printa o binario de 32 bits resultante
-    
+    */
     return 0;
 }
