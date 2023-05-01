@@ -209,7 +209,6 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
         //referenciado de acordo com comando da entrada.
         if (entrada) printf("%s\n", get_I_binary(*Result_I));
         else fprintf(fp, "%s", get_I_binary(*Result_I));
-        
     }
 
     if (tipo == 2) {
