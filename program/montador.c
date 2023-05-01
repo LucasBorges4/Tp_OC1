@@ -145,6 +145,8 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
 }
 /*Funções de leitura de arquivo*/
 
+
+
 short le_Linha(FILE *arqEntrada,char*arqSaida, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B* vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
     //Declara a string para a linha, aloca e armazena a linha
     char *linha; //String para armazenar a linha atual
@@ -203,12 +205,13 @@ short le_Linha(FILE *arqEntrada,char*arqSaida, Type_I* vetor_I, Type_R* vetor_R,
     else {
         sscanf(str[3], "%d", &num2); //caso nao, entao é um imediato, se é entao procura e converte-lo para inteiro
     }
-    
+
     int tipo = pesquisa_instrução(str[0], vetor_I, vetor_R, vetor_S, vetor_B, Result_I, Result_R, Result_S, Result_B);
         
     int entrada = 0;
     FILE *fp;
     if(arqSaida != NULL){
+    
     fp = fopen(arqSaida, "a+");
     }
     else{
@@ -218,9 +221,9 @@ short le_Linha(FILE *arqEntrada,char*arqSaida, Type_I* vetor_I, Type_R* vetor_R,
         set_registradores_I(Result_I, num,  num2, num1);
         //referenciado de acordo com comando da entrada.
         if (entrada) printf("%s\n", get_I_binary(*Result_I));
-        else 
+        else {
             fprintf(fp, "%s\n", get_I_binary(*Result_I));
-        
+        }
     }
 
     if (tipo == 2) {
@@ -243,6 +246,7 @@ short le_Linha(FILE *arqEntrada,char*arqSaida, Type_I* vetor_I, Type_R* vetor_R,
     
 
     //Libera memoria e retorna;
+    if(fp)
     fclose(fp);
     free(linha);
     return 1;
