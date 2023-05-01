@@ -70,6 +70,8 @@ int main(void){
     char * Arquivo_Entrada  = (char*)malloc(NUM_CHARACTERS_MAX);
     char *Arquivo_Saida =  (char*)malloc(NUM_CHARACTERS_MAX);
     char *Linha_Input = (char*) malloc(NUM_CHARACTERS_MAX);
+    char*Arquivo_Saida_Filtered = (char*)malloc(NUM_CHARACTERS_MAX);
+
 
     printf("Digite a linha de comando:");
     fgets(Linha_Input, NUM_CHARACTERS_MAX, stdin);
@@ -81,7 +83,6 @@ int main(void){
     strcpy(Arquivo_Entrada,token);
     Arquivo_Saida = strtok(NULL, "");
     
-    char*Arquivo_Saida_Filtered = (char*)malloc(NUM_CHARACTERS_MAX);
     int index=0;
     if(Arquivo_Saida != NULL){
     for(int x=0;x<strlen(Arquivo_Saida);x++){
@@ -97,16 +98,15 @@ int main(void){
         Arquivo_Saida_Filtered=NULL;
     }
     abre_Arquivo(&arq_Entrada, &arq_Saida, Arquivo_Entrada,Arquivo_Saida_Filtered); 
-    FILE*fp;
-    
-    //fp = fopen(Arquivo_Entrada, "ra+");
-    if(Arquivo_Saida_Filtered != NULL)
-        fp = fopen(Arquivo_Saida_Filtered, "ra+");
 
+    //fp = fopen(Arquivo_Entrada, "ra+");
+ 
     while (1){
         if (!le_Linha(arq_Entrada,Arquivo_Saida_Filtered, vetor_I, vetor_R, vetor_S, vetor_B, &binary_I, &binary_R, &binary_S, &binary_B)) break;
         
     };
+    
+    
     
 
     
