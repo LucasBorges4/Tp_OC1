@@ -26,7 +26,7 @@ typedef struct Type_R {
     // Nome
     char nome_Instrucao[6];
     //Estrutura da instrução;
-    int funct_7; // 31 - 25
+    size_t funct_7; // 31 - 25
     int Rs2_5; // 24 - 20
     int Rs1_5; // 19 - 15
     int funct_3; // 14 - 12
@@ -50,7 +50,7 @@ typedef struct Tipo_I {
     
     //Estrutura da instrução;
     char nome_Instrucao[6];
-    int immediate_12; // 31 - 20
+    size_t immediate_12; // 31 - 20
     int Rs1_5; // 19 - 15
     int funct_3; // 14 - 12
     int Rd_5; // 11 - 7
@@ -75,7 +75,7 @@ typedef struct TipoS {
     
     //Estrutura da instrução;
     char nome_Instrucao[5];
-    int immediate_7; // 31 - 25
+    size_t immediate_7; // 31 - 25
     int Rs2_5; // 24 - 20
     int Rs1_5; // 19 - 15
     int funct_3; // 14 - 12
@@ -118,6 +118,9 @@ size_t octal_to_binary(size_t octal);
 size_t hexa_to_binary(char* hexa);
 size_t decimal_to_Binary(size_t decimal);
 //size_t decimal_to_Binary_neg(char* num);
+void char_To_Binary(char c, char *binario);
+void invert_Binary(char *binario);
+char* convert_Neg_To_Bin(char* c);
 int shift_Num(int num);
 
 //Funções de leitura de arquivo

@@ -1,4 +1,8 @@
 #include "montador.h"
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 size_t decimal_to_Binary(size_t decimal){ //Funcao que objetiva receber um decimal e retornar um binario de tipo size_t(similar ao unsigned int)
     size_t resultado = 0; //Variavel para armazenar o resultado final(binario)
@@ -175,6 +179,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     char str[4][5]; //string constante que armazenara o vetor de strings gerado pela separacao da linha baseado em espacos
 
     int num, num1, num2;
+    int negative = 0;
 
     while (token != NULL) { //Enquanto token ainda nao for nulo
         strcpy(str[i], token); //Atribuido ao vetor str no indice i o valor de token
@@ -187,6 +192,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     sscanf(str[1], "%*[^0123456789]%d", &num); //Procura no primeiro parametro algum numero e atribui a num
 
     if (str[2][0] == 120) {
+        
         sscanf(str[2], "%*[^0123456789]%d", &num1); //Procura no segundo paramentro algum numero e atribui a num1
     } // se caso for um registrador já que x = 120 na tabela ascii, entao passa pelo if e faz a procura
 
@@ -219,6 +225,9 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     }
 
     if (tipo == 2) {
+        if (num1 < 0) {
+            
+        }
         set_registradores_S(Result_S, num1, num, num2);
         if (entrada) printf("%s\n", get_S_binary(*Result_S)); //referenciado de acordo com comando da entrada
         else fprintf(fp, "%s\n", get_S_binary(*Result_S));
@@ -231,6 +240,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     }
 
     if (tipo == 4) {
+
         set_registradores_B(Result_B, num2, num, num1);
         if (entrada) printf("%s\n", get_B_binary(*Result_B)); //refernciado de acordo com ocmando da entrada.
         else fprintf(fp, "%s\n", get_B_binary(*Result_B));
@@ -242,6 +252,44 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     fclose(fp);
     free(linha);
     return 1;
+
+}
+
+void char_To_Binary(char c, char *binario) {
+    for (int i = 0; i < 12; i++) {
+        binario[11-i] = (c & (1 << i)) ? '1' : '0';
+    }
+    binario[12] = '\0';
+}
+
+void invert_Binary(char *binario) {
+    for (int i = 0; i < 12; i++) {
+        binario[i] = (binario[i] == '1') ? '0' : '1';
+    }
+}
+
+char* convert_Neg_To_Bin(char *str) {
+    // alocar espaço para o binário e o resultado
+    char *binario = (char *)malloc(13 * sizeof(char));
+    char *resultado = (char *)malloc(13 * sizeof(char));
+
+    // converter a string para binário
+    char c = strtol(str, NULL, 10);
+    char_To_Binary(c, binario);
+
+    // inverter os 1's e 0's do binário
+    invert_Binary(binario);
+
+    // adicionar 1 ao binário invertido
+    int carry = 1;
+    for (int i = 11; i >= 0; i--) {
+        int soma = (binario[i] - '0') + carry;
+        resultado[i] = (soma % 2) + '0';
+        carry = soma / 2;
+    }
+    resultado[12] = '\0';
+    free(binario);
+    return resultado;
 }
 
 void limpa_Arquivo(FILE* arq, const char* str){
@@ -329,7 +377,23 @@ int get_substring(char* string,int initial_pos,int length){ //Funcao com o objet
 
 
 void set_registradores_I(Type_I * struct_I,int Rd,int immediate,int Rs1){ //Coloca os valores dos registradores e imediatos no tipo I
-    struct_I->immediate_12=decimal_to_Binary(immediate); //Imediato convertido para binario
+    
+   
+    if (immediate < 0){
+        immediate *= -1;
+        char* str;
+        str = (char*) malloc(13*sizeof(char));
+
+        sprintf(str, "%d", immediate);   
+        size_t aux;
+        sscanf(convert_Neg_To_Bin(str), "%zu", &aux);
+        
+        struct_I->immediate_12 = aux;
+        
+        free(str);
+    }
+    
+    else struct_I->immediate_12=decimal_to_Binary(immediate); //Imediato convertido para binario
     struct_I->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_I->Rd_5=decimal_to_Binary(Rd); //Rd convertido para binario
 }
@@ -341,7 +405,6 @@ void set_registradores_R(Type_R * struct_R,int Rd,int Rs1,int Rs2){  //Coloca os
 
 void set_registradores_S(Type_S * struct_S, int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo S
     struct_S->immediate_7=decimal_to_Binary(get_substring(adicionar_zeros_esquerda(immediate,7),5,11)); //Imediato[11:5] convertido para binario
-    
     struct_S->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_S->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
     struct_S->immediate_5=decimal_to_Binary(get_substring(adicionar_zeros_esquerda(immediate,7),0,4)); //Imediato[4:0] convertido para binario 
