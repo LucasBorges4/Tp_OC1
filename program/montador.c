@@ -303,6 +303,22 @@ char *get_S_binary(Type_S struct_S){ //Funcao que retorna o binario de 32 bits d
 
     
 }
+char *get_B_binary(Type_B struct_B){ //Funcao que retorna o binario de 32 bits do tipo B
+    
+    char *binary=(char*)malloc(sizeof(char)*32); //Alocacao de 32 chars
+    /*Passa todos os inteiros contidos na estrutura B em
+    forma de binario e, se necessario, com zeros a esquerda */
+    sprintf(binary, "%s%s%s%s%s%s",adicionar_zeros_esquerda(struct_B.immediate_7,7), //sprintf para conversao de todos os inteiros em um unico char
+    adicionar_zeros_esquerda(struct_B.Rs2_5,5),
+    adicionar_zeros_esquerda(struct_B.Rs1_5,5),
+    adicionar_zeros_esquerda(struct_B.funct_3,3),
+    adicionar_zeros_esquerda(struct_B.immediate_5,5),
+    adicionar_zeros_esquerda(struct_B.opcode_7,7));
+    
+    return binary;
+
+    
+}
 
 int get_substring(char* string,int initial_pos,int length){ //Funcao com o objetivo de pegar um intervalo(substring) dentro de uma string
     char *substring = (char*)malloc(length-initial_pos+1); //Alocacao de memoria apropriada
