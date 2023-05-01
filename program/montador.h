@@ -85,6 +85,7 @@ typedef struct TipoS {
     //Type of instruction "83"
     
 } Type_S;
+
 typedef struct TipoB {
        /*Struct para instrucoes do tipo B
     Contem:
@@ -126,7 +127,7 @@ int shift_Num(int num);
 void abre_Arquivo(FILE** arqEntrada, FILE** arqSaida, char* endereco_Entrada);
 //void fecha_Arquivo(FILE arqEntrada, FILE arqSaida);
 
-short le_Linha(FILE* arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S);
+short le_Linha(FILE* arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B *vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B);
 short le_instrucao_R(Type_R *montador, char* str);
 short le_instrucao_S(Type_S *montador, char* str);
 short le_instrucao_I(Type_I *montador, char* str);

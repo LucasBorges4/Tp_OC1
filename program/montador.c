@@ -152,7 +152,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
 }
 /*Funções de leitura de arquivo*/
 
-short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
+short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B* vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
     //Declara a string para a linha, aloca e armazena a linha
     char *linha; //String para armazenar a linha atual
     short TAM_linha = 100; //Limite de caracteres por linha
@@ -215,7 +215,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     num1 = decimal_to_Binary(num1);
     num2 = decimal_to_Binary(num2);
     */
-    int tipo = pesquisa_instrução(str[0], vetor_I, vetor_R, vetor_S, Result_I, Result_R, Result_S);
+    int tipo = pesquisa_instrução(str[0], vetor_I, vetor_R, vetor_S, vetor_B, Result_I, Result_R, Result_S, Result_B);
     
     FILE *fp;
     fp = fopen("./stdin/binary", "w");
