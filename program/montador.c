@@ -204,18 +204,17 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     }
     
     int tipo = pesquisa_instrução(str[0], vetor_I, vetor_R, vetor_S, vetor_B, Result_I, Result_R, Result_S, Result_B);
-    
+        
+    int entrada = 0;
     FILE *fp;
     fp = fopen("./stdin/binary.txt", "a+");
-    
-    int entrada = 0;
-    
+
     if (tipo == 1) {
         set_registradores_I(Result_I, num,  num2, num1);
         //referenciado de acordo com comando da entrada.
-        if (entrada) printf("%s", get_I_binary(*Result_I));
+        if (entrada) printf("%s\n", get_I_binary(*Result_I));
         else {
-            fprintf(fp, "%s", get_I_binary(*Result_I));
+            fprintf(fp, "%s\n", get_I_binary(*Result_I));
         }
     }
 

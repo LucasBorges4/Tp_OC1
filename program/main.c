@@ -71,6 +71,9 @@ int main(void){
     Type_S binary_S;
     Type_B binary_B;
 
+    FILE *fp;
+    fp = fopen("./stdin/binary.txt", "ra+");
+
     while (1){
         if (!le_Linha(arq_Entrada, vetor_I, vetor_R, vetor_S, vetor_B, &binary_I, &binary_R, &binary_S, &binary_B)) break;
         
