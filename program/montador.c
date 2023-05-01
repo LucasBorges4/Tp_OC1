@@ -331,16 +331,17 @@ void set_registradores_R(Type_R * struct_R,int Rd,int Rs1,int Rs2){  //Coloca os
 }
 
 void set_registradores_S(Type_S * struct_S, int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo S
-    struct_S->immediate_7=get_substring(adicionar_zeros_esquerda(immediate,7),5,11); //Imediato[11:5] convertido para binario
+    struct_S->immediate_7=decimal_to_Binary(get_substring(adicionar_zeros_esquerda(immediate,7),5,11)); //Imediato[11:5] convertido para binario
+    
     struct_S->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_S->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
-    struct_S->immediate_5=get_substring(adicionar_zeros_esquerda(immediate,7),0,4); //Imediato[4:0] convertido para binario 
+    struct_S->immediate_5=decimal_to_Binary(get_substring(adicionar_zeros_esquerda(immediate,7),0,4)); //Imediato[4:0] convertido para binario 
 }
 
 
 void set_registradores_B(Type_B * struct_B,int Rd,int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo B
-    struct_B->immediate_7=  pow(10,get_substring(adicionar_zeros_esquerda(immediate,7),12,12)) + get_substring(adicionar_zeros_esquerda(immediate,7),5,10); //Imediato[11:5] convertido para binario
+    struct_B->immediate_7=  decimal_to_Binary(pow(10,get_substring(adicionar_zeros_esquerda(immediate,7),12,12)) + get_substring(adicionar_zeros_esquerda(immediate,7),5,10)); //Imediato[11:5] convertido para binario
     struct_B->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_B->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
-    struct_B->immediate_5=get_substring(adicionar_zeros_esquerda(immediate,7),1,4) + get_substring(adicionar_zeros_esquerda(immediate,7),11,11); //Imediato[4:0] convertido para binario 
+    struct_B->immediate_5=decimal_to_Binary(get_substring(adicionar_zeros_esquerda(immediate,7),1,4) + get_substring(adicionar_zeros_esquerda(immediate,7),11,11)); //Imediato[4:0] convertido para binario 
 }
