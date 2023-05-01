@@ -111,7 +111,7 @@ int main(void){
 
     
     fclose(arq_Entrada); //Fecha o arquivo de entrada, visto que nao vai ser mais utilizado
-    return 2;
+    return 1;
     /*Type_I resulti;
     Type_R resultr;
     Type_S results;
