@@ -1,8 +1,5 @@
 #include "montador.h"
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 
 size_t decimal_to_Binary(size_t decimal){ //Funcao que objetiva receber um decimal e retornar um binario de tipo size_t(similar ao unsigned int)
     size_t resultado = 0; //Variavel para armazenar o resultado final(binario)
@@ -57,13 +54,17 @@ int shift_Num(int num){ //Funcao com o objetivo de realizar uma operacao de desl
     return num << 1; //retorna o numero com o deslocamento feito
 }
 
-void abre_Arquivo(FILE** arqEntrada,FILE** arqSaida, char* endereco_Entrada,char*endereco_Saida){ //Funcao com o objetivo de abrir os possiveis arquivos de entrada e saida
+void limpa_Arquivo(FILE* arq, const char* str){
+    arq = fopen(str, "w");
+    fprintf(arq, ""); //LIMPA ARQUIVO DE SAIDA;
+    fclose(arq);
+}
+
+void abre_Arquivo(FILE** arqEntrada,FILE** arqSaida, char* endereco_Entrada){ //Funcao com o objetivo de abrir os possiveis arquivos de entrada e saida
     
     *arqEntrada = fopen(endereco_Entrada,"r"); //Abre o arquivo de entrada no modo 'leitura'
-    if(endereco_Saida != NULL)
-    *arqSaida = fopen(endereco_Saida,"a"); //Abre o arquivo de saida no modo 'escrita'
-
-    if(arqEntrada == NULL && arqSaida == NULL){ //Caso algum dos arquivos nao exista
+    *arqSaida = fopen("./assembly/binary","a"); //Abre o arquivo de saida no modo 'escrita'
+    if(arqEntrada == NULL || arqSaida == NULL){ //Caso algum dos arquivos nao exista
         printf("Erro ao abrir arquivos!\n"); 
         exit(1); 
     }
@@ -149,7 +150,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
 }
 /*Funções de leitura de arquivo*/
 
-short le_Linha(FILE *arqEntrada,char*arqSaida, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B* vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
+short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B* vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
     //Declara a string para a linha, aloca e armazena a linha
     char *linha; //String para armazenar a linha atual
     short TAM_linha = 100; //Limite de caracteres por linha
@@ -214,12 +215,7 @@ short le_Linha(FILE *arqEntrada,char*arqSaida, Type_I* vetor_I, Type_R* vetor_R,
         
     int entrada = 0;
     FILE *fp;
-    if(arqSaida != NULL){
-    fp = fopen(arqSaida, "a+");
-    }
-    else{
-    entrada = 1;
-}
+    
     if (tipo == 1) {
         set_registradores_I(Result_I, num,  num2, num1);
         //referenciado de acordo com comando da entrada.

@@ -121,21 +121,18 @@ size_t octal_to_binary(size_t octal);
 size_t hexa_to_binary(char* hexa);
 size_t decimal_to_Binary(size_t decimal);
 //size_t decimal_to_Binary_neg(char* num);
-<<<<<<< HEAD
 void char_To_Binary(char c, char *binario);
 void invert_Binary(char *binario);
 char* convert_Neg_To_Bin(char* c);
-=======
-
->>>>>>> refs/remotes/origin/main
 int shift_Num(int num);
 
 //Funções de leitura de arquivo
 
-void abre_Arquivo(FILE** arqEntrada,FILE** arqSaida, char* endereco_Entrada,char*endereco_Saida);
+void abre_Arquivo(FILE** arqEntrada, FILE** arqSaida, char* endereco_Entrada);
 //void fecha_Arquivo(FILE arqEntrada, FILE arqSaida);
+void limpa_Arquivo(FILE* arq, const char* str);
 
-short le_Linha(FILE *arqEntrada,char*arqSaida, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B* vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B); //Funcao com o objetivo de ler o arquivo de entrada linha por linha
+short le_Linha(FILE *arqEntrada,Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B* vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B); //Funcao com o objetivo de ler o arquivo de entrada linha por linha
 short le_instrucao_S(Type_S *montador, char* str);
 short le_instrucao_I(Type_I *montador, char* str);
 short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, Type_B *montador_B,
