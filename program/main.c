@@ -57,16 +57,19 @@ int main(void){
     abre_Arquivo(&arq_Entrada, &arq_Saida, endereco_entrada); 
 
     free(endereco_entrada); //Libera a string, visto que nao sera mais utilizada
-    
+   // decimal_to_Binary_neg("-2");
     char* str = "add";
 
     printf("%d\n", le_instrucao_R(vetor_R, str));
     printf("%d\n", le_instrucao_I(vetor_I, str));
     printf("%d\n", le_instrucao_S(vetor_S, str));
     
-    
+    Type_I binary_I;
+    Type_R binary_R;
+    Type_S binary_S;
+
     while (1){
-        if (!le_Linha(arq_Entrada, vetor_I, vetor_R, vetor_S)) break;
+        if (!le_Linha(arq_Entrada, vetor_I, vetor_R, vetor_S, &binary_I, &binary_R, &binary_S)) break;
         
     };
     

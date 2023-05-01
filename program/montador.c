@@ -7,14 +7,18 @@
 
 size_t decimal_to_Binary(size_t decimal){ //Funcao que objetiva receber um decimal e retornar um binario de tipo size_t(similar ao unsigned int)
     size_t resultado = 0; //Variavel para armazenar o resultado final(binario)
-    u_short i = 0; 
+    size_t fator = 1;
+
     while (decimal != 0) {  //Loop termina quando o decimal for zero
-        resultado += decimal%2 * pow(10, i); //Resultado recebe ele mesmo mais o resto da variavel decimal por 2 vezes a potencia 10^i
+        resultado += decimal%2 * fator; //Resultado recebe ele mesmo mais o resto da variavel decimal por 2 vezes a potencia 10^i
+        fator *= 10;
         decimal/=2; //Decimal reduzido na metade
-        i++; //Incremento do indice i
-    }
+        }   
+
     return resultado;
 }
+
+
 
 
 size_t octal_to_binary(size_t octal){ //Funcao que objetiva receber um octal e retornar um binario de tipo size_t(similar ao unsigned int)
@@ -105,7 +109,6 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
         if (index != -1){    //Caso nao for -1, a funcao pertence nesse tipo
             *Result_I = montador_I[index]; //Result_I recebe a struct no indice index no montador_I
             return 1; //Retorna 1 se instrucao for do tipo I
-            break;
         }
     }
       
@@ -113,9 +116,8 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
        int index = le_instrucao_S(&montador_S[i], str); //Indice recebe o possivel indice da instrucao no vetor S
         if (index != -1){  //Caso nao for -1, a funcao pertence nesse tipo
             *Result_S = montador_S[index];  //Result_S recebe a struct no indice index no montador_S
-
             return 2; //Retorna 2 se instrucao for do tipo S
-            break;
+            
         }
     }
 
@@ -124,7 +126,6 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
         if (index != -1){     //Caso nao for -1, a funcao pertence nesse tipo
             *Result_R = montador_R[index];  //Result_R recebe a struct no indice index no montador_R
             return 3; //Retorna 3 se instrucao for do tipo R
-            break;
         }
     }
 
@@ -133,7 +134,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
 
 /*Funções de leitura de arquivo*/
 
-short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
+short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
     //Declara a string para a linha, aloca e armazena a linha
     char *linha; //String para armazenar a linha atual
     short TAM_linha = 100; //Limite de caracteres por linha
@@ -154,7 +155,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     }
     //Lê a linha;
 
-    const char delim[1] = " "; //Delimitador a ser utilizado
+    const char delim[3] = " ("; //Delimitador a ser utilizado
     char *token;
 
     token = strtok(linha, delim);  //A funcao strtok e responsavel por separar a string baseada em certos delimitadores, que nesse caso e um espaco
@@ -163,16 +164,70 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
 
     char str[4][5]; //string constante que armazenara o vetor de strings gerado pela separacao da linha baseado em espacos
 
+    int num, num1, num2;
+
     while (token != NULL) { //Enquanto token ainda nao for nulo
         strcpy(str[i], token); //Atribuido ao vetor str no indice i o valor de token
-        printf("%s\n", str[i]);
         token = strtok(NULL, delim); //token recebe um strtok para que seja separado novamente pelo delimitador espaco
         i++; //indice incrementa 
     }
     
+    printf("%s %s %s %s", str[0], str[1], str[2], str[3]);
+    
+    sscanf(str[1], "%*[^0123456789]%d", &num);
 
+    if (str[2][0] == 120) {
+        sscanf(str[2], "%*[^0123456789]%d", &num1);    
+    }
+
+    else {
+        sscanf(str[2], "%d", &num1);
+    }
+
+    if (str[3][0] == 120) {
+        sscanf(str[3], "%*[^0123456789]%d", &num2);    
+    }
+
+    else {
+        sscanf(str[3], "%d", &num2);
+    }
+    
+    /*
+    num = decimal_to_Binary(num);
+    num1 = decimal_to_Binary(num1);
+    num2 = decimal_to_Binary(num2);
+    */
+    int tipo = pesquisa_instrução(str[0], vetor_I, vetor_R, vetor_S, Result_I, Result_R, Result_S);
+    
+    FILE *fp;
+    fp = fopen("./stdin/binary", "w");
+    
+    int entrada = 1;
+    
+    if (tipo == 1) {
+        //set_registradores_I(*Result_I, int Rd, int immediate, int Rs1)
+        //referenciado de acordo com comando da entrada.
+        if (entrada) printf("%s\n", get_I_binary(*Result_I));
+        else fprintf(fp, "%s", get_I_binary(*Result_I));
+        
+    }
+
+    if (tipo == 2) {
+        //set_registradores_S(*Result_S, int immediate, int Rs1, int Rs2);
+        if (entrada) printf("%s\n", get_S_binary(*Result_S)); //referenciado de acordo com comando da entrada
+        else fprintf(fp, "%s", get_S_binary(*Result_S));
+    }
+
+    if (tipo == 3) {
+        set_registradores_R(Result_R, num, num1, num2);
+        if (entrada) printf("%s\n", get_R_binary(*Result_R)); //refernciado de acordo com ocmando da entrada.
+        else fprintf(fp, "%s\n", get_R_binary(*Result_R));
+    }
+    
 
     //Libera memoria e retorna;
+    
+    fclose(fp);
     free(linha);
     return 1;
 }
@@ -250,7 +305,7 @@ void set_registradores_R(Type_R * struct_R,int Rd,int Rs1,int Rs2){  //Coloca os
     struct_R->Rd_5=decimal_to_Binary(Rd); //Rd convertido para binario
 }
 
-void set_registradores_S(Type_S * struct_S,int Rd,int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo S
+void set_registradores_S(Type_S * struct_S, int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo S
     struct_S->immediate_7=get_substring(adicionar_zeros_esquerda(immediate,7),5,11); //Imediato[11:5] convertido para binario
     struct_S->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_S->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
