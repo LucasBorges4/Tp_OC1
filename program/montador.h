@@ -144,3 +144,4 @@ int get_substring(char* string,int initial_pos,int length);
 char *get_S_binary(Type_S struct_S);
 char *get_I_binary(Type_I struct_I);
 char *get_R_binary(Type_R struct_R);
+char *get_B_binary(Type_B struct_B);
