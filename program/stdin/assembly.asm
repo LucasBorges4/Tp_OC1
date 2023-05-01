@@ -10,4 +10,5 @@ sub x4, x2, x3
 and x4, x2, x3
 ori x3, x2, 15
 srl x3, x2, 2
-beq x0, x2, 20
+beq x0, x13, 20
+bne x0, x13, 20
