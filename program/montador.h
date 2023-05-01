@@ -93,11 +93,16 @@ typedef struct TipoB {
     int opcode_7; // 6 - 0
     
 } Type_B;
+
+
 //Funções dos Tipos
 /* */
 //Funções Primordiais
 
 char* instruct_Converter_to_Binary(char* str);
+void char_To_Binary(char c, char *binario);
+void invert_Binary(char *binario);
+char* convert_Neg_To_Bin(char* c);
 
 size_t octal_to_binary(size_t octal);
 size_t hexa_to_binary(char* hexa);

@@ -1,4 +1,24 @@
 #include "montador.h"
+#include <sys/types.h>
+
+u_short entrada = 0;
+
+u_short tipo_saida(char* entrada){
+    const char delim[3] = " ("; //Delimitador a ser utilizado
+    char *token;
+    token = strtok(entrada, delim);  //A funcao strtok e responsavel por separar a string baseada em certos delimitadores, que nesse caso e um espaco
+    short i = 0; //variavel indice
+    char str[4][5]; //string constante que armazenara o vetor de strings gerado pela separacao da linha baseado em espacos
+    int num, num1, num2;
+    while (token != NULL) { //Enquanto token ainda nao for nulo
+        strcpy(str[i], token); //Atribuido ao vetor str no indice i o valor de token
+        token = strtok(NULL, delim); //token recebe um strtok para que seja separado novamente pelo delimitador espaco
+        i++; //indice incrementa 
+    }
+    
+}
+
+
 size_t decimal_to_Binary(size_t decimal){ //Funcao que objetiva receber um decimal e retornar um binario de tipo size_t(similar ao unsigned int)
     size_t resultado = 0; //Variavel para armazenar o resultado final(binario)
     size_t fator = 1;
@@ -123,6 +143,38 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
     }
     return 0; //Retorna 0 se a instrucao for desconhecida    
 }
+void char_To_Binary(char c, char *binario) {
+    for (int i = 0; i < 12; i++) {
+        binario[11-i] = (c & (1 << i)) ? '1' : '0';
+    }
+    binario[12] = '\0';
+}
+void invert_Binary(char *binario) {
+    for (int i = 0; i < 12; i++) {
+        binario[i] = (binario[i] == '1') ? '0' : '1';
+    }
+}
+char* convert_Neg_To_Bin(char *str) {
+    // alocar espaço para o binário e o resultado
+    char *binario = (char *)malloc(13 * sizeof(char));
+    char *resultado = (char *)malloc(13 * sizeof(char));
+    // converter a string para binário
+    char c = strtol(str, NULL, 10);
+    char_To_Binary(c, binario);
+    // inverter os 1's e 0's do binário
+    invert_Binary(binario);
+    // adicionar 1 ao binário invertido
+    int carry = 1;
+    for (int i = 11; i >= 0; i--) {
+        int soma = (binario[i] - '0') + carry;
+        resultado[i] = (soma % 2) + '0';
+        carry = soma / 2;
+    }
+    resultado[12] = '\0';
+    free(binario);
+    return resultado;
+}
+
 /*Funções de leitura de arquivo*/
 short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B* vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
     //Declara a string para a linha, aloca e armazena a linha
@@ -285,7 +337,22 @@ int get_substring(char* string,int initial_pos,int length){ //Funcao com o objet
         return atoi(substring); //Retorna a substring como inteiro pela funcao atoi    
 }
 void set_registradores_I(Type_I * struct_I,int Rd,int immediate,int Rs1){ //Coloca os valores dos registradores e imediatos no tipo I
-    struct_I->immediate_12=decimal_to_Binary(immediate); //Imediato convertido para binario
+    
+   
+    if (immediate < 0){
+        immediate *= -1;
+        char* str;
+        str = (char*) malloc(13*sizeof(char));
+        sprintf(str, "%d", immediate);   
+        size_t aux;
+        sscanf(convert_Neg_To_Bin(str), "%zu", &aux);
+        
+        struct_I->immediate_12 = aux;
+        
+        free(str);
+    }
+    
+    else struct_I->immediate_12=decimal_to_Binary(immediate); //Imediato convertido para binario
     struct_I->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_I->Rd_5=decimal_to_Binary(Rd); //Rd convertido para binario
 }
