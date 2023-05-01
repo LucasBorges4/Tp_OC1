@@ -139,7 +139,7 @@ char* adicionar_zeros_esquerda(int binario,int num_bits);
 void set_registradores_S(Type_S * struct_S,int immediate,int Rs1,int Rs2);
 void set_registradores_R(Type_R * struct_R,int Rd,int Rs1,int Rs2);
 void set_registradores_I(Type_I * struct_I,int Rd,int immediate,int Rs1);
-void set_registradores_B(Type_B * struct_B,int Rd,int immediate,int Rs1,int Rs2);
+void set_registradores_B(Type_B * struct_B,int immediate,int Rs1,int Rs2);
 int get_substring(char* string,int initial_pos,int length);
 char *get_S_binary(Type_S struct_S);
 char *get_I_binary(Type_I struct_I);

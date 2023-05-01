@@ -135,7 +135,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
         int index = le_instrucao_B(&montador_B[i], str); //Indice recebe o possivel indice da instrucao no vetor R
         if (index != -1){     //Caso nao for -1, a funcao pertence nesse tipo
             *Result_B = montador_B[index];  //Result_R recebe a struct no indice index no montador_R
-            return 3; //Retorna 3 se instrucao for do tipo R
+            return 4; //Retorna 3 se instrucao for do tipo R
             break;
         }
     }
@@ -184,29 +184,25 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     
     printf("%s %s %s %s", str[0], str[1], str[2], str[3]);
     
-    sscanf(str[1], "%*[^0123456789]%d", &num);
+    sscanf(str[1], "%*[^0123456789]%d", &num); //Procura no primeiro parametro algum numero e atribui a num
 
     if (str[2][0] == 120) {
-        sscanf(str[2], "%*[^0123456789]%d", &num1);    
-    }
+        sscanf(str[2], "%*[^0123456789]%d", &num1); //Procura no segundo paramentro algum numero e atribui a num1
+    } // se caso for um registrador já que x = 120 na tabela ascii, entao passa pelo if e faz a procura
 
     else {
-        sscanf(str[2], "%d", &num1);
+        sscanf(str[2], "%d", &num1); //caso nao, entao é um imediato, se é entao procura e converte-lo para inteiro
     }
 
     if (str[3][0] == 120) {
-        sscanf(str[3], "%*[^0123456789]%d", &num2);    
+        sscanf(str[3], "%*[^0123456789]%d", &num2);  //Procura no segundo paramentro algum numero e atribui a num1
+        // se caso for um registrador já que x = 120 na tabela ascii, entao passa pelo if e faz a procura
     }
 
     else {
-        sscanf(str[3], "%d", &num2);
+        sscanf(str[3], "%d", &num2); //caso nao, entao é um imediato, se é entao procura e converte-lo para inteiro
     }
     
-    /*
-    num = decimal_to_Binary(num);
-    num1 = decimal_to_Binary(num1);
-    num2 = decimal_to_Binary(num2);
-    */
     int tipo = pesquisa_instrução(str[0], vetor_I, vetor_R, vetor_S, vetor_B, Result_I, Result_R, Result_S, Result_B);
     
     FILE *fp;
@@ -218,7 +214,9 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
         set_registradores_I(Result_I, num,  num2, num1);
         //referenciado de acordo com comando da entrada.
         if (entrada) printf("%s\n", get_I_binary(*Result_I));
-        else fprintf(fp, "%s", get_I_binary(*Result_I));
+        else {
+            fprintf(fp, "%s", get_I_binary(*Result_I));
+        }
     }
 
     if (tipo == 2) {
@@ -231,6 +229,12 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
         set_registradores_R(Result_R, num, num1, num2);
         if (entrada) printf("%s\n", get_R_binary(*Result_R)); //refernciado de acordo com ocmando da entrada.
         else fprintf(fp, "%s\n", get_R_binary(*Result_R));
+    }
+
+    if (tipo == 4) {
+        set_registradores_B(Result_B, num2, num, num1);
+        if (entrada) printf("%s\n", get_B_binary(*Result_B)); //refernciado de acordo com ocmando da entrada.
+        else fprintf(fp, "%s\n", get_B_binary(*Result_B));
     }
     
 
@@ -339,7 +343,7 @@ void set_registradores_S(Type_S * struct_S, int immediate,int Rs1,int Rs2){ //Co
 }
 
 
-void set_registradores_B(Type_B * struct_B,int Rd,int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo B
+void set_registradores_B(Type_B * struct_B, int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo B
     struct_B->immediate_7=  decimal_to_Binary(pow(10,get_substring(adicionar_zeros_esquerda(immediate,7),12,12)) + get_substring(adicionar_zeros_esquerda(immediate,7),5,10)); //Imediato[11:5] convertido para binario
     struct_B->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_B->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
