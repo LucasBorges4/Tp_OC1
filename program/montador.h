@@ -130,8 +130,8 @@ short le_Linha(FILE* arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
 short le_instrucao_R(Type_R *montador, char* str);
 short le_instrucao_S(Type_S *montador, char* str);
 short le_instrucao_I(Type_I *montador, char* str);
-short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, 
-Type_I * Result_I,Type_R * Result_R,Type_S * Result_S);
+short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, Type_B *montador_B,
+Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B);
 
 
 char* adicionar_zeros_esquerda(int binario,int num_bits);
