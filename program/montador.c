@@ -303,6 +303,22 @@ char *get_S_binary(Type_S struct_S){ //Funcao que retorna o binario de 32 bits d
 
     
 }
+char *get_B_binary(Type_B struct_B){ //Funcao que retorna o binario de 32 bits do tipo B
+    
+    char *binary=(char*)malloc(sizeof(char)*32); //Alocacao de 32 chars
+    /*Passa todos os inteiros contidos na estrutura B em
+    forma de binario e, se necessario, com zeros a esquerda */
+    sprintf(binary, "%s%s%s%s%s%s",adicionar_zeros_esquerda(struct_B.immediate_7,7), //sprintf para conversao de todos os inteiros em um unico char
+    adicionar_zeros_esquerda(struct_B.Rs2_5,5),
+    adicionar_zeros_esquerda(struct_B.Rs1_5,5),
+    adicionar_zeros_esquerda(struct_B.funct_3,3),
+    adicionar_zeros_esquerda(struct_B.immediate_5,5),
+    adicionar_zeros_esquerda(struct_B.opcode_7,7));
+    
+    return binary;
+
+    
+}
 
 int get_substring(char* string,int initial_pos,int length){ //Funcao com o objetivo de pegar um intervalo(substring) dentro de uma string
     char *substring = (char*)malloc(length-initial_pos+1); //Alocacao de memoria apropriada
@@ -327,4 +343,12 @@ void set_registradores_S(Type_S * struct_S, int immediate,int Rs1,int Rs2){ //Co
     struct_S->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_S->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
     struct_S->immediate_5=get_substring(adicionar_zeros_esquerda(immediate,7),0,4); //Imediato[4:0] convertido para binario 
+}
+
+
+void set_registradores_B(Type_B * struct_B,int Rd,int immediate,int Rs1,int Rs2){ //Coloca os valores dos registradores e imediatos no tipo B
+    struct_B->immediate_7=  pow(10,get_substring(adicionar_zeros_esquerda(immediate,7),12,12)) + get_substring(adicionar_zeros_esquerda(immediate,7),5,10); //Imediato[11:5] convertido para binario
+    struct_B->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
+    struct_B->Rs2_5=decimal_to_Binary(Rs2); //Rs2 convertido para binario
+    struct_B->immediate_5=get_substring(adicionar_zeros_esquerda(immediate,7),1,4) + get_substring(adicionar_zeros_esquerda(immediate,7),11,11); //Imediato[4:0] convertido para binario 
 }
