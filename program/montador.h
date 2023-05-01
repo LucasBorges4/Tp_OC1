@@ -85,6 +85,26 @@ typedef struct TipoS {
     //Type of instruction "83"
     
 } Type_S;
+typedef struct TipoB {
+       /*Struct para instrucoes do tipo B
+    Contem:
+    -Nome da instrucao
+    -Imediato da instrucao(12bits)
+    -Rs1(Primeiro registrador)(5bits)
+    -Rd(Registrador de destino)(5bits)
+    -Opcode da instrucao(7bits)
+    */
+    
+    //Estrutura da instrução;
+    char nome_Instrucao[6];
+    int immediate_7; // 31 - 25
+    int immediate_5; // 11 - 6
+    int Rs1_5; // 19 - 15
+    int funct_3; // 14 - 12
+    int Rs2_5; // 11 - 7
+    int opcode_7; // 6 - 0
+    
+} Type_B;
 
 //Funções dos Tipos
 
