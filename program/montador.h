@@ -90,8 +90,8 @@ typedef struct TipoB {
     
     //Estrutura da instrução;
     char nome_Instrucao[6];
-    int immediate_7; // 31 - 20
-    int immediate_5; // 31 - 20
+    int immediate_7; // 31 - 25
+    int immediate_5; // 11 - 6
     int Rs1_5; // 19 - 15
     int funct_3; // 14 - 12
     int Rs2_5; // 11 - 7
