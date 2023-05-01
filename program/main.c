@@ -1,12 +1,9 @@
 #include "montador.h"
-#include <stdio.h>
 
 int main(void){
     
     FILE *arq_Entrada; //Armazena o arquivo de entrada
     FILE *arq_Saida; //Armazena o arquivo de saida
-
-    limpa_Arquivo(arq_Saida, "./stdin/binary.txt"); //Apaga o que está escrito no arquivo binary.txt
 
     Type_I vetor_I[NUM_INSTRUCT_TYPE_I];
     Type_R vetor_R[NUM_INSTRUCT_TYPE_R];
@@ -52,26 +49,71 @@ int main(void){
         vetor_B[x].opcode_7 = instrucoes_B_codes[x][1]; //Passa o opcode contido em instrucoes_B_codes no indice {x,1} para a instrucao B no indice x
     }
     
-    char* endereco_entrada; //String para armazenar o endereco de entrada
-    endereco_entrada = (char*) malloc(50*sizeof(char)); //Alocacao de 50 caracteres(limite)
-    strcpy(endereco_entrada, "./stdin/assembly.asm"); //Atribuicao do endereco para a string
-    abre_Arquivo(&arq_Entrada, &arq_Saida, endereco_entrada); 
 
     free(endereco_entrada); //Libera a string, visto que nao sera mais utilizada
-   
+   // decimal_to_Binary_neg("-2");
+    char* str = "add";
+
     Type_I binary_I;
     Type_R binary_R;
     Type_S binary_S;
     Type_B binary_B;
 
-    FILE *fp;
-    fp = fopen("./stdin/binary.txt", "ra+");
+
+    char * Arquivo_Entrada  = (char*)malloc(NUM_CHARACTERS_MAX);
+    char *Arquivo_Saida =  (char*)malloc(NUM_CHARACTERS_MAX);
+    char *Linha_Input = (char*) malloc(NUM_CHARACTERS_MAX);
+
+    printf("Digite a linha de comando:");
+    fgets(Linha_Input, NUM_CHARACTERS_MAX, stdin);
+
+   char *separador=" ";
+   char * token = strtok(Linha_Input, separador);
+ 
+
+    strcpy(Arquivo_Entrada,token);
+    Arquivo_Saida = strtok(NULL, "");
+    
+    char*Arquivo_Saida_Filtered = (char*)malloc(NUM_CHARACTERS_MAX);
+    int index=0;
+    if(Arquivo_Saida != NULL){
+    for(int x=0;x<strlen(Arquivo_Saida);x++){
+        if(x>2){
+            Arquivo_Saida_Filtered[index]=Arquivo_Saida[x];
+            index++;
+        }
+            
+    }
+    Arquivo_Saida_Filtered[index+1]='\0';
+
+    }else{
+        Arquivo_Saida_Filtered=NULL;
+    }
+    abre_Arquivo(&arq_Entrada, &arq_Saida, Arquivo_Entrada,Arquivo_Saida_Filtered); 
+    FILE*fp;
+    
+    //fp = fopen(Arquivo_Entrada, "ra+");
+    if(Arquivo_Saida_Filtered != NULL)
+        fp = fopen(Arquivo_Saida_Filtered, "ra+");
 
     while (1){
         if (!le_Linha(arq_Entrada, vetor_I, vetor_R, vetor_S, vetor_B, &binary_I, &binary_R, &binary_S, &binary_B)) break;
+        
     };
     
 
+    
     fclose(arq_Entrada); //Fecha o arquivo de entrada, visto que nao vai ser mais utilizado
+
+    /*Type_I resulti;
+    Type_R resultr;
+    Type_S results;
+    //Exemplo de uso!
+    
+    pesquisa_instrução("srl",  vetor_I, vetor_R, vetor_S,  //Adiciona os valores funct7,funct3 e opcode de srl em resultr
+    &resulti,&resultr,&results); 
+    set_registradores_R(&resultr,0,2,2);  //Define os valores rd,rs1 e rs2 de R (srl x0,x2,x2)
+    printf("%s ",get_R_binary(resultr)); //Printa o binario de 32 bits resultante
+    */
     return 0;
 }
