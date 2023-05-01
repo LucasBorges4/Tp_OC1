@@ -1,9 +1,4 @@
 #include "montador.h"
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
 
 size_t decimal_to_Binary(size_t decimal){ //Funcao que objetiva receber um decimal e retornar um binario de tipo size_t(similar ao unsigned int)
     size_t resultado = 0; //Variavel para armazenar o resultado final(binario)
@@ -246,7 +241,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     return 1;
 }
 
-char* adicionar_zeros_esquerda(int binario,int num_bits){ //Funcao com o objetivo de adicionar zeros a esquerda baseado em um numero de bits especifico
+char* adicionar_zeros_esquerda(int binario, int num_bits){ //Funcao com o objetivo de adicionar zeros a esquerda baseado em um numero de bits especifico
     
     char *str = (char*)malloc(sizeof(char)*num_bits); //str alocada dinamicamente com num_bits caracteres
     sprintf(str, "%0*d", num_bits,binario); //sprintf para que sejam adicionados zeros a esquerda ate que o binario tenha num_bits bits
