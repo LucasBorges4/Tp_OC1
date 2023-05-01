@@ -9,9 +9,9 @@ int main(void){
     FILE *arq_Entrada; //Armazena o arquivo de entrada
     FILE *arq_Saida; //Armazena o arquivo de saida
 
-    Type_I vetor_I[6];
-    Type_R vetor_R[7];
-    Type_S vetor_S[3];
+    Type_I vetor_I[NUM_INSTRUCT_TYPE_I];
+    Type_R vetor_R[NUM_INSTRUCT_TYPE_R];
+    Type_S vetor_S[NUM_INSTRUCT_TYPE_S];
 
     // Tipo I addi, andi, ori, lw, lb, lh, -> 6 
     // Tipo R add, sub, and, or, xor, sll e srl -> 7
@@ -20,16 +20,16 @@ int main(void){
     // Por exemplo -> MV tem o mesmo binario que add x19, x19, x0
     
       
-    char instrucoes_I[6][5] = {"addi","andi","ori","lw","lb","lh"}; //Instrucoes do tipo I
-    char instrucoes_R[7][4] = {"add", "sub", "and", "or", "xor", "sll", "srl"}; //Instrucoes do tipo R
-    char instrucoes_S[3][3] = {"sw", "sb", "sh"}; //Instrucoes do tipo S
-    char instrucoes_B[4][4] = {"beq", "bne", "blt", "bge"};
+    char instrucoes_I[NUM_INSTRUCT_TYPE_I][5] = {"addi","andi","ori","lw","lb","lh"}; //Instrucoes do tipo I
+    char instrucoes_R[NUM_INSTRUCT_TYPE_R][4] = {"add", "sub", "and", "or", "xor", "sll", "srl"}; //Instrucoes do tipo R
+    char instrucoes_S[NUM_INSTRUCT_TYPE_S][3] = {"sw", "sb", "sh"}; //Instrucoes do tipo S
+    char instrucoes_B[NUM_INSTRUCT_TYPE_B][4] = {"beq", "bne", "blt", "bge"};
     // beq OPCODE = 1100011 FUNC 3 = 000
                                     
     int instrucoes_I_codes[6][2] = {{0,10011},{111,10011},{110,10011},{10,11},{0,11},{1,11}}; //func3,opcode7
     int instrucoes_R_codes[7][3] = {{0,0,110011},{100000,0,110011},{0,111,110011},{0,110,110011},{0,100,110011},{0,1,110011},{0,101,110011}}; //func7,func3,opcode
     int instrucoes_S_codes[3][2] = {{10,100011},{0,100011},{1,100011}}; //func3,opcode7
-    int instrucoes_B_codes[4][2] = {{000,1100011}, {001, 1100011}, {100, 1100011}, {101, 1100011}};
+    int instrucoes_B_codes[4][2] = {{000,1100011}, {001, 1100011}, {100, 1100011}, {101, 1100011}}; //func3, opcode7
     
     char *p;
 
