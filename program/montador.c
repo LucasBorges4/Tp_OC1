@@ -208,7 +208,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     int entrada = 0;
     FILE *fp;
     fp = fopen("./stdin/binary.txt", "a+");
-
+    
     if (tipo == 1) {
         set_registradores_I(Result_I, num,  num2, num1);
         //referenciado de acordo com comando da entrada.
@@ -242,6 +242,12 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     fclose(fp);
     free(linha);
     return 1;
+}
+
+void limpa_Arquivo(FILE* arq, const char* str){
+    arq = fopen(str, "w");
+    fprintf(arq, ""); //LIMPA ARQUIVO DE SAIDA;
+    fclose(arq);
 }
 
 char* adicionar_zeros_esquerda(int binario, int num_bits){ //Funcao com o objetivo de adicionar zeros a esquerda baseado em um numero de bits especifico

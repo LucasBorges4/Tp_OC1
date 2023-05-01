@@ -114,20 +114,20 @@ typedef struct TipoB {
 //Funções Primordiais
 
 char* instruct_Converter_to_Binary(char* str);
-
 size_t octal_to_binary(size_t octal);
 size_t hexa_to_binary(char* hexa);
 size_t decimal_to_Binary(size_t decimal);
 //size_t decimal_to_Binary_neg(char* num);
-
 int shift_Num(int num);
 
 //Funções de leitura de arquivo
 
 void abre_Arquivo(FILE** arqEntrada, FILE** arqSaida, char* endereco_Entrada);
 //void fecha_Arquivo(FILE arqEntrada, FILE arqSaida);
-
 short le_Linha(FILE* arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_B *vetor_B, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S, Type_B *Result_B);
+void limpa_Arquivo(FILE* arq, const char* str);
+
+//MANIPULAÇÃO DOS DADOS
 short le_instrucao_R(Type_R *montador, char* str);
 short le_instrucao_S(Type_S *montador, char* str);
 short le_instrucao_I(Type_I *montador, char* str);

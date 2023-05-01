@@ -1,9 +1,12 @@
 #include "montador.h"
+#include <stdio.h>
 
 int main(void){
     
     FILE *arq_Entrada; //Armazena o arquivo de entrada
     FILE *arq_Saida; //Armazena o arquivo de saida
+
+    limpa_Arquivo(arq_Saida, "./stdin/binary.txt"); //Apaga o que está escrito no arquivo binary.txt
 
     Type_I vetor_I[NUM_INSTRUCT_TYPE_I];
     Type_R vetor_R[NUM_INSTRUCT_TYPE_R];
