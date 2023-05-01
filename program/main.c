@@ -12,6 +12,7 @@ int main(void){
     Type_I vetor_I[NUM_INSTRUCT_TYPE_I];
     Type_R vetor_R[NUM_INSTRUCT_TYPE_R];
     Type_S vetor_S[NUM_INSTRUCT_TYPE_S];
+    Type_B vetor_B[NUM_INSTRUCT_TYPE_B];
 
     // Tipo I addi, andi, ori, lw, lb, lh, -> 6 
     // Tipo R add, sub, and, or, xor, sll e srl -> 7
@@ -70,9 +71,10 @@ int main(void){
     Type_I binary_I;
     Type_R binary_R;
     Type_S binary_S;
+    Type_B binary_B;
 
     while (1){
-        if (!le_Linha(arq_Entrada, vetor_I, vetor_R, vetor_S, &binary_I, &binary_R, &binary_S)) break;
+        if (!le_Linha(arq_Entrada, vetor_I, vetor_R, vetor_S, vetor_B, &binary_I, &binary_R, &binary_S, &binary_B)) break;
         
     };
     
