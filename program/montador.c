@@ -100,15 +100,24 @@ short le_instrucao_S(Type_S *montador, char* str){ //Retorna o indice da instruc
     return -1;
 }
 
+short le_instrucao_B(Type_B *montador, char* str){ //Retorna o indice da instrucao no tipo B, se existir, caso contrario, retorna -1
+    for (int i = 0; i < 3; i++) {
+        if (!strcmp(montador[i].nome_Instrucao, &str[0])) {
+            return i;
+        }
+    }
+    return -1;
+}
 
-short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, 
-Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar o tipo de uma certa instrucao e atribuir ao devido struct seus parametros(funct_3,funct_7,opcode)
+short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, Type_B *montador_B,
+Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Funcao para encontrar o tipo de uma certa instrucao e atribuir ao devido struct seus parametros(funct_3,funct_7,opcode)
         
     for (int i = 0; i < 7; i++) {
         int index = le_instrucao_I(&montador_I[i], str); //Indice recebe o possivel indice da instrucao no vetor I
         if (index != -1){    //Caso nao for -1, a funcao pertence nesse tipo
             *Result_I = montador_I[index]; //Result_I recebe a struct no indice index no montador_I
             return 1; //Retorna 1 se instrucao for do tipo I
+            break;
         }
     }
       
@@ -116,8 +125,9 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
        int index = le_instrucao_S(&montador_S[i], str); //Indice recebe o possivel indice da instrucao no vetor S
         if (index != -1){  //Caso nao for -1, a funcao pertence nesse tipo
             *Result_S = montador_S[index];  //Result_S recebe a struct no indice index no montador_S
+
             return 2; //Retorna 2 se instrucao for do tipo S
-            
+            break;
         }
     }
 
@@ -126,12 +136,20 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S){ //Funcao para encontrar 
         if (index != -1){     //Caso nao for -1, a funcao pertence nesse tipo
             *Result_R = montador_R[index];  //Result_R recebe a struct no indice index no montador_R
             return 3; //Retorna 3 se instrucao for do tipo R
+            break;
+        }
+    }
+     for (int i = 0; i < 4; i++) {
+        int index = le_instrucao_B(&montador_B[i], str); //Indice recebe o possivel indice da instrucao no vetor R
+        if (index != -1){     //Caso nao for -1, a funcao pertence nesse tipo
+            *Result_B = montador_B[index];  //Result_R recebe a struct no indice index no montador_R
+            return 3; //Retorna 3 se instrucao for do tipo R
+            break;
         }
     }
 
     return 0; //Retorna 0 se a instrucao for desconhecida    
 }
-
 /*Funções de leitura de arquivo*/
 
 short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor_S, Type_I *Result_I, Type_R *Result_R, Type_S *Result_S){ //Funcao com o objetivo de ler o arquivo de entrada linha por linha
