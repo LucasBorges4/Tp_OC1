@@ -18,9 +18,6 @@ size_t decimal_to_Binary(size_t decimal){ //Funcao que objetiva receber um decim
     return resultado;
 }
 
-
-
-
 size_t octal_to_binary(size_t octal){ //Funcao que objetiva receber um octal e retornar um binario de tipo size_t(similar ao unsigned int)
     size_t resultado = 0; //Variavel para armazenar o resultado final(binario)
     u_short i = 0;
@@ -112,7 +109,7 @@ short le_instrucao_B(Type_B *montador, char* str){ //Retorna o indice da instruc
 short pesquisa_instrução(char* str, Type_I* montador_I, Type_R* montador_R, Type_S* montador_S, Type_B *montador_B,
 Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Funcao para encontrar o tipo de uma certa instrucao e atribuir ao devido struct seus parametros(funct_3,funct_7,opcode)
         
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < NUM_INSTRUCT_TYPE_I; i++) {
         int index = le_instrucao_I(&montador_I[i], str); //Indice recebe o possivel indice da instrucao no vetor I
         if (index != -1){    //Caso nao for -1, a funcao pertence nesse tipo
             *Result_I = montador_I[index]; //Result_I recebe a struct no indice index no montador_I
@@ -121,7 +118,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
         }
     }
       
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < NUM_INSTRUCT_TYPE_S; i++) {
        int index = le_instrucao_S(&montador_S[i], str); //Indice recebe o possivel indice da instrucao no vetor S
         if (index != -1){  //Caso nao for -1, a funcao pertence nesse tipo
             *Result_S = montador_S[index];  //Result_S recebe a struct no indice index no montador_S
@@ -131,7 +128,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
         }
     }
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < NUM_INSTRUCT_TYPE_R; i++) {
         int index = le_instrucao_R(&montador_R[i], str); //Indice recebe o possivel indice da instrucao no vetor R
         if (index != -1){     //Caso nao for -1, a funcao pertence nesse tipo
             *Result_R = montador_R[index];  //Result_R recebe a struct no indice index no montador_R
@@ -139,7 +136,7 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
             break;
         }
     }
-     for (int i = 0; i < 4; i++) {
+     for (int i = 0; i < NUM_INSTRUCT_TYPE_B; i++) {
         int index = le_instrucao_B(&montador_B[i], str); //Indice recebe o possivel indice da instrucao no vetor R
         if (index != -1){     //Caso nao for -1, a funcao pertence nesse tipo
             *Result_B = montador_B[index];  //Result_R recebe a struct no indice index no montador_R
