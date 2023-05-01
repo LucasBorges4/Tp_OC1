@@ -205,7 +205,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     int entrada = 1;
     
     if (tipo == 1) {
-        //set_registradores_I(*Result_I, int Rd, int immediate, int Rs1)
+        set_registradores_I(Result_I, num,  num2, num1);
         //referenciado de acordo com comando da entrada.
         if (entrada) printf("%s\n", get_I_binary(*Result_I));
         else fprintf(fp, "%s", get_I_binary(*Result_I));
@@ -213,7 +213,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     }
 
     if (tipo == 2) {
-        //set_registradores_S(*Result_S, int immediate, int Rs1, int Rs2);
+        set_registradores_S(Result_S, num1, num, num2);
         if (entrada) printf("%s\n", get_S_binary(*Result_S)); //referenciado de acordo com comando da entrada
         else fprintf(fp, "%s", get_S_binary(*Result_S));
     }
