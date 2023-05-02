@@ -301,10 +301,7 @@ char* adicionar_um_esquerda(int binario, int num_bits){ //Funcao com o objetivo 
     resultado_str = (char*)malloc(14-i*sizeof(char));
     sprintf(formato_str, "1%d%%d", num);
     sprintf(resultado_str, formato_str, binario);        
-    
-    printf("%s", resultado_str);
-    
-    
+      
     return resultado_str; //Retorna o binario, que, agora, e representado por uma string, visto que zeros a esquerda sao removidos por padrao em tipos inteiros
 }
 
@@ -388,7 +385,6 @@ void set_registradores_I(Type_I * struct_I,int Rd,int immediate,int Rs1){ //Colo
         sprintf(str, "%d\n", immediate);   
         size_t aux;
         sscanf(convert_Neg_To_Bin(str), "%zu", &aux);
-        printf("%zu\n", aux);
         struct_I->immediate_12 = aux;
         struct_I-> immediate_neg = 1;
         
