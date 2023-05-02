@@ -25,18 +25,17 @@ void tipo_saida(void){
         palavra = strtok(NULL, " "); // Obtendo a próxima palavra da frase
     }
     
-    if (strcmp(palavras[1], "\0")) {
-        entrada = 0;
-    }
-    
-    else if (strcmp(palavras[2], "\0")) {
-        entrada = 0;
-    }
-
-    else {
+    if (!strcmp(palavras[1], "\0")) {
         entrada = 1;
     }
 
+    else if (!strcmp(palavras[2], "\0")) {
+        entrada = 1;
+    }
+    
+    else {
+        entrada = 0;
+    }
     return;
 }
     
