@@ -1,4 +1,6 @@
 #include "montador.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 
 u_short entrada = 0;
@@ -15,7 +17,8 @@ u_short tipo_saida(char* entrada){
         token = strtok(NULL, delim); //token recebe um strtok para que seja separado novamente pelo delimitador espaco
         i++; //indice incrementa 
     }
-    
+    printf("%s", str[0]);
+    return 0;
 }
 
 
@@ -144,20 +147,20 @@ Type_I * Result_I,Type_R * Result_R,Type_S * Result_S,Type_B * Result_B){ //Func
     return 0; //Retorna 0 se a instrucao for desconhecida    
 }
 void char_To_Binary(char c, char *binario) {
-    for (int i = 0; i < 12; i++) {
-        binario[11-i] = (c & (1 << i)) ? '1' : '0';
+    for (int i = 0; i < 8; i++) {
+        binario[7-i] = (c & (1 << i)) ? '1' : '0';
     }
-    binario[12] = '\0';
+    binario[8] = '\0';
 }
 void invert_Binary(char *binario) {
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 8; i++) {
         binario[i] = (binario[i] == '1') ? '0' : '1';
     }
 }
 char* convert_Neg_To_Bin(char *str) {
     // alocar espaço para o binário e o resultado
-    char *binario = (char *)malloc(13 * sizeof(char));
-    char *resultado = (char *)malloc(13 * sizeof(char));
+    char *binario = (char *)malloc(9 * sizeof(char));
+    char *resultado = (char *)malloc(9 * sizeof(char));
     // converter a string para binário
     char c = strtol(str, NULL, 10);
     char_To_Binary(c, binario);
@@ -165,12 +168,12 @@ char* convert_Neg_To_Bin(char *str) {
     invert_Binary(binario);
     // adicionar 1 ao binário invertido
     int carry = 1;
-    for (int i = 11; i >= 0; i--) {
+    for (int i = 7; i >= 0; i--) {
         int soma = (binario[i] - '0') + carry;
         resultado[i] = (soma % 2) + '0';
         carry = soma / 2;
     }
-    resultado[12] = '\0';
+    resultado[8] = '\0';
     free(binario);
     return resultado;
 }
@@ -227,6 +230,7 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
         
     int entrada = 0;
     FILE *fp;
+
     fp = fopen("./stdin/binary.txt", "a+");
 
     
@@ -274,6 +278,36 @@ char* adicionar_zeros_esquerda(int binario, int num_bits){ //Funcao com o objeti
     
     return str; //Retorna o binario, que, agora, e representado por uma string, visto que zeros a esquerda sao removidos por padrao em tipos inteiros
 }
+
+char* adicionar_um_esquerda(int binario, int num_bits){ //Funcao com o objetivo de adicionar zeros a esquerda baseado em um numero de bits especifico
+
+    char formato_str[20]; // Definindo o tamanho da string para 20 caracteres
+    
+    int i = 0, aux;
+    aux = binario;
+    while (aux > 0) {
+        aux /= 10;
+        i++;
+    }
+
+    int num = 0, fator = 1, j = 0;
+    while (j < 12-i-1) {
+        num += 1*fator;
+        fator *= 10;
+        j++;
+    }
+
+    char* resultado_str; // Definindo o tamanho da nova string
+    resultado_str = (char*)malloc(14-i*sizeof(char));
+    sprintf(formato_str, "1%d%%d", num);
+    sprintf(resultado_str, formato_str, binario);        
+    
+    printf("%s", resultado_str);
+    
+    
+    return resultado_str; //Retorna o binario, que, agora, e representado por uma string, visto que zeros a esquerda sao removidos por padrao em tipos inteiros
+}
+
 char *get_R_binary(Type_R struct_R){ //Funcao que retorna o binario de 32 bits do tipo R
     char *binary=(char*)malloc(sizeof(char)*32); //Alocacao de 32 chars
     /*Passa todos os inteiros contidos na estrutura R em
@@ -292,12 +326,21 @@ char *get_I_binary(Type_I struct_I){ //Funcao que retorna o binario de 32 bits d
     char *binary=(char*)malloc(sizeof(char)*32); //Alocacao de 32 chars
      /*Passa todos os inteiros contidos na estrutura I em
     forma de binario e, se necessario, com zeros a esquerda */
+    if (struct_I .immediate_neg == 1) {
+    sprintf(binary, "%s%s%s%s%s",adicionar_um_esquerda(struct_I.immediate_12,12),  //sprintf para conversao de todos os inteiros em um unico char
+    adicionar_zeros_esquerda(struct_I.Rs1_5,5),
+    adicionar_zeros_esquerda(struct_I.funct_3,3),
+    adicionar_zeros_esquerda(struct_I.Rd_5,5),
+    adicionar_zeros_esquerda(struct_I.opcode_7,7));
+    }
+
+    else {
     sprintf(binary, "%s%s%s%s%s",adicionar_zeros_esquerda(struct_I.immediate_12,12),  //sprintf para conversao de todos os inteiros em um unico char
     adicionar_zeros_esquerda(struct_I.Rs1_5,5),
     adicionar_zeros_esquerda(struct_I.funct_3,3),
     adicionar_zeros_esquerda(struct_I.Rd_5,5),
     adicionar_zeros_esquerda(struct_I.opcode_7,7));
-    
+    }
     return binary;
     
 }
@@ -338,21 +381,25 @@ int get_substring(char* string,int initial_pos,int length){ //Funcao com o objet
 }
 void set_registradores_I(Type_I * struct_I,int Rd,int immediate,int Rs1){ //Coloca os valores dos registradores e imediatos no tipo I
     
-   
     if (immediate < 0){
         immediate *= -1;
         char* str;
         str = (char*) malloc(13*sizeof(char));
-        sprintf(str, "%d", immediate);   
+        sprintf(str, "%d\n", immediate);   
         size_t aux;
         sscanf(convert_Neg_To_Bin(str), "%zu", &aux);
-        
+        printf("%zu\n", aux);
         struct_I->immediate_12 = aux;
+        struct_I-> immediate_neg = 1;
         
         free(str);
     }
     
-    else struct_I->immediate_12=decimal_to_Binary(immediate); //Imediato convertido para binario
+    else {
+    struct_I->immediate_12=decimal_to_Binary(immediate);
+    struct_I-> immediate_neg = 0;
+    } 
+    //Imediato convertido para binario
     struct_I->Rs1_5=decimal_to_Binary(Rs1); //Rs1 convertido para binario
     struct_I->Rd_5=decimal_to_Binary(Rd); //Rd convertido para binario
 }

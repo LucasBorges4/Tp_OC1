@@ -43,6 +43,7 @@ typedef struct Tipo_I {
     //Estrutura da instrução;
     char nome_Instrucao[6];
     int immediate_12; // 31 - 20
+    int immediate_neg;
     int Rs1_5; // 19 - 15
     int funct_3; // 14 - 12
     int Rd_5; // 11 - 7
