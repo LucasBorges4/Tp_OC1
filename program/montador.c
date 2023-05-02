@@ -3,25 +3,43 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-u_short entrada = 0;
+int entrada;
+void tipo_saida(void){
+    char frase[100];
 
-u_short tipo_saida(char* entrada){
-    const char delim[3] = " ("; //Delimitador a ser utilizado
-    char *token;
-    token = strtok(entrada, delim);  //A funcao strtok e responsavel por separar a string baseada em certos delimitadores, que nesse caso e um espaco
-    short i = 0; //variavel indice
-    char str[4][5]; //string constante que armazenara o vetor de strings gerado pela separacao da linha baseado em espacos
-    int num, num1, num2;
-    while (token != NULL) { //Enquanto token ainda nao for nulo
-        strcpy(str[i], token); //Atribuido ao vetor str no indice i o valor de token
-        token = strtok(NULL, delim); //token recebe um strtok para que seja separado novamente pelo delimitador espaco
-        i++; //indice incrementa 
+    scanf("%[^\n]", frase);
+
+    char *palavra;
+    char palavras[20][20]; // Definindo uma matriz de strings para armazenar as palavras separadas
+    int i = 0;
+
+    strcpy(palavras[0], "\0");
+    strcpy(palavras[1], "\0");
+    strcpy(palavras[2], "\0");
+
+    palavra = strtok(frase, " "); // Dividindo a frase em palavras usando o espaço como delimitador
+  
+    while (palavra != NULL) {
+        strcpy(palavras[i], palavra); // Copiando a palavra atual para a matriz de palavras
+        i++;
+        palavra = strtok(NULL, " "); // Obtendo a próxima palavra da frase
     }
-    printf("%s", str[0]);
-    return 0;
+    
+    if (strcmp(palavras[1], "\0")) {
+        entrada = 0;
+    }
+    
+    else if (strcmp(palavras[2], "\0")) {
+        entrada = 0;
+    }
+
+    else {
+        entrada = 1;
+    }
+
+    return;
 }
-
-
+    
 size_t decimal_to_Binary(size_t decimal){ //Funcao que objetiva receber um decimal e retornar um binario de tipo size_t(similar ao unsigned int)
     size_t resultado = 0; //Variavel para armazenar o resultado final(binario)
     size_t fator = 1;
@@ -228,7 +246,6 @@ short le_Linha(FILE *arqEntrada, Type_I* vetor_I, Type_R* vetor_R, Type_S* vetor
     
     int tipo = pesquisa_instrução(str[0], vetor_I, vetor_R, vetor_S, vetor_B, Result_I, Result_R, Result_S, Result_B);
         
-    int entrada = 0;
     FILE *fp;
 
     fp = fopen("./stdin/binary.txt", "a+");

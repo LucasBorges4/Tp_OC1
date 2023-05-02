@@ -4,10 +4,12 @@
 #include <string.h>
 #include <math.h>
 #include <sys/types.h>
+
 #define NUM_INSTRUCT_TYPE_I 6
 #define NUM_INSTRUCT_TYPE_R 7
 #define NUM_INSTRUCT_TYPE_S 3
 #define NUM_INSTRUCT_TYPE_B 4
+
 typedef struct Type_R { 
     /*Struct para instrucoes do tipo R
     Contem:
@@ -95,7 +97,7 @@ typedef struct TipoB {
     
 } Type_B;
 
-
+void tipo_saida(void);
 //Funções dos Tipos
 /* */
 //Funções Primordiais

@@ -8,6 +8,8 @@ int main(void){
 
     limpa_Arquivo(arq_Saida, "./stdin/binary.txt"); //Apaga o que está escrito no arquivo binary.txt
 
+    tipo_saida(); //./stdin/assembly.asm -o ./stdin/binary.txt
+
     Type_I vetor_I[NUM_INSTRUCT_TYPE_I];
     Type_R vetor_R[NUM_INSTRUCT_TYPE_R];
     Type_S vetor_S[NUM_INSTRUCT_TYPE_S];
