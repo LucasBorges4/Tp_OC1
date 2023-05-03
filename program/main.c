@@ -1,5 +1,4 @@
 #include "montador.h"
-#include <stdio.h>
 
 int main(void){
 
@@ -25,7 +24,6 @@ int main(void){
     char instrucoes_R[NUM_INSTRUCT_TYPE_R][4] = {"add", "sub", "and", "or", "xor", "sll", "srl"}; //Instrucoes do tipo R
     char instrucoes_S[NUM_INSTRUCT_TYPE_S][3] = {"sw", "sb", "sh"}; //Instrucoes do tipo S
     char instrucoes_B[NUM_INSTRUCT_TYPE_B][4] = {"beq", "bne", "blt", "bge"};
-    // beq OPCODE = 1100011 FUNC 3 = 000
                                     
     int instrucoes_I_codes[NUM_INSTRUCT_TYPE_I][2] = {{0,10011},{111,10011},{110,10011},{10,11},{0,11},{1,11}}; //func3,opcode7
     int instrucoes_R_codes[NUM_INSTRUCT_TYPE_R][3] = {{0,0,110011},{100000,0,110011},{0,111,110011},{0,110,110011},{0,100,110011},{0,1,110011},{0,101,110011}}; //func7,func3,opcode
@@ -77,15 +75,6 @@ int main(void){
     };
     
     fclose(arq_Entrada); //Fecha o arquivo de entrada, visto que nao vai ser mais utilizado
-    /*Type_I resulti;
-    Type_R resultr;
-    Type_S results;
-    //Exemplo de uso!
     
-    pesquisa_instrução("srl",  vetor_I, vetor_R, vetor_S,  //Adiciona os valores funct7,funct3 e opcode de srl em resultr
-    &resulti,&resultr,&results); 
-    set_registradores_R(&resultr,0,2,2);  //Define os valores rd,rs1 e rs2 de R (srl x0,x2,x2)
-    printf("%s ",get_R_binary(resultr)); //Printa o binario de 32 bits resultante
-    */
     return 0;
 }
